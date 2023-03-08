@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/login_page.dart';
 
 import '../utils/app_styles.dart';
@@ -130,7 +132,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     style: Styles.headLineStyle2.copyWith(color: Colors.white),
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, 
+                                                                      password: _passwordController.text).then((value) {
+                                                                        print("Created New User Account");
+                                                                        Navigator.of(context).pushReplacement(
+                                                                                MaterialPageRoute(
+                                                                                 builder: (context) =>
+                                                                                   const BottomBar(),
+                                                                                ),
+                                                                             );                                                      
+                                                                      }).onError((error, stackTrace) {
+                                                                        print("Error ${error.toString()}");
+                                                                      });
+                },
               ),
               const SizedBox(
                 height: 45,

@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/registration_page.dart';
 
 import '../utils/app_styles.dart';
 import '../widgets/text_field_input.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -132,12 +134,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onTap: () {
-                   Navigator.of(context).pushReplacement(
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const BottomBar(),
+                  FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text, 
+                                                                  password: _passwordController.text).then((value) {
+                                                              Navigator.of(context).pushReplacement(
+                                                                MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                    const BottomBar(),
                                                 ),
-                                              );
+                                              ).onError((error, StackTrace) {
+                                                                      print("Error ${error.toString()}");
+                                                                    });
+
+                  });
+                  
                 },
               ),
               const SizedBox(

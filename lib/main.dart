@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:orta/screens/login_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'database_management/shared_preferences_services.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  // await sharedPrefs.sharePrefsInit();
+  // sharedPrefs.setItems(setCategoriesToDefault: false);
+  // sharedPrefs.getCurrency();
+  // sharedPrefs.getAllExpenseItemsLists();
+ 
+
   runApp(const MyApp());
 }
 
