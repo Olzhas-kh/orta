@@ -19,7 +19,7 @@ class OnBoarding3 extends StatelessWidget {
               
               children: [
                 
-                SizedBox(height: 70,),
+                SizedBox(height: 50,),
                 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,

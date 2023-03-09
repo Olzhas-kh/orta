@@ -18,7 +18,7 @@ class OnBoarding2 extends StatelessWidget {
           child: Column(
               children: [
                 
-                SizedBox(height: 70,),
+                SizedBox(height: 50,),
                 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +64,7 @@ class OnBoarding2 extends StatelessWidget {
                         textAlign: TextAlign.center,
                       )),
                 ),
-                const SizedBox(height: 70,),
+                const SizedBox(height: 80,),
                 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -79,8 +79,8 @@ class OnBoarding2 extends StatelessWidget {
                   ),
                 const SizedBox(height: 20,),
                 
-                Expanded(
-                  child: InkWell(
+              
+                  InkWell(
                       child: Container(
                         width: double.infinity,
                         alignment: Alignment.center,
@@ -107,7 +107,7 @@ class OnBoarding2 extends StatelessWidget {
                                                     );
                       },
                     ),
-                ),
+                
                 
               ],
             ),
