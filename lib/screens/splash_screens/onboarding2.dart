@@ -64,7 +64,7 @@ class OnBoarding2 extends StatelessWidget {
                         textAlign: TextAlign.center,
                       )),
                 ),
-                const SizedBox(height: 80,),
+                const SizedBox(height: 70,),
                 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -78,33 +78,36 @@ class OnBoarding2 extends StatelessWidget {
                     ],
                   ),
                 const SizedBox(height: 20,),
-                InkWell(
-                    child: Container(
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 22,
-                      ),
-                      decoration:  ShapeDecoration(
-                        color: Styles.greyColorButton,
-                        shape:  const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                
+                Expanded(
+                  child: InkWell(
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 22,
+                        ),
+                        decoration:  ShapeDecoration(
+                          color: Styles.greyColorButton,
+                          shape:  const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        child: Text(
+                          "Next",
+                          style: Styles.headLineStyle2.copyWith(color: Colors.white),
                         ),
                       ),
-                      child: Text(
-                        "Next",
-                        style: Styles.headLineStyle2.copyWith(color: Colors.white),
-                      ),
+                      onTap: () {
+                          Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const OnBoarding3(),
+                                                      ),
+                                                    );
+                      },
                     ),
-                    onTap: () {
-                        Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const OnBoarding3(),
-                                                    ),
-                                                  );
-                    },
-                  ),
+                ),
                 
               ],
             ),
