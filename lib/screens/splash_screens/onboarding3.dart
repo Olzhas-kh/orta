@@ -72,9 +72,9 @@ class OnBoarding3 extends StatelessWidget {
                     children: [
                       CircleContainer(color: Styles.greyColor,),
                       SizedBox(width: 15,),
-                      CircleContainer(color: Styles.greyColorButton,),
+                      CircleContainer(color: Styles.greyColor,),
                       SizedBox(width: 15,),
-                      CircleContainer(color: Styles.greyColor),
+                      CircleContainer(color: Styles.greyColorButton),
           
                     ],
                   ),
