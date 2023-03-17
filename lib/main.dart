@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         useLoader: true,
         loaderColor: Colors.black,
-        image: Image.asset("assets/images/logo1.png"),
+        image: Image.asset("assets/images/splash_logo.png",alignment: Alignment.center,),
         
         photoSize: 100,
         title: Text("More than a community", style: TextStyle(color: Colors.black,fontSize: 20, fontWeight: FontWeight.bold),),

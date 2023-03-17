@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:orta/screens/splash_screens/end_onboarding.dart.dart';
+import 'package:orta/screens/login_page.dart';
+import 'package:orta/screens/splash_screens/onboarding2.dart';
+import 'package:orta/screens/splash_screens/onboarding3.dart';
 import 'package:orta/utils/app_styles.dart';
 import 'package:orta/widgets/circle_container.dart';
 
@@ -10,108 +12,65 @@ class OnBoarding3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          const SizedBox(height: 100,),
+         SizedBox(
+            height: 400,
+            width: double.infinity,
+            child: Center(child: Image.asset("assets/images/icon.png"))),
+            
+            const SizedBox(height: 50,),
+            Text("Heading about participating in eventsv",style: Styles.headLineStyle2.copyWith(fontSize: 20, fontWeight: FontWeight.bold,),),
+            const SizedBox(height: 20,),
+            const Text("In our app you can find thousands of events related to any interest. Make friends, find like-minded people, broad networking.",style: TextStyle(fontSize: 14),),
+            const SizedBox(height: 40,),
+                
               
-              children: [
-                
-                SizedBox(height: 50,),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: ()=> Navigator.of(context).pop(),
-                      child:  Icon(Icons.arrow_back,color:Styles.greyColorButton,
-                      
+                  InkWell(
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 18,
+                        ),
+                        decoration:  ShapeDecoration(
+                          color: Styles.greyColorButton,
+                          shape:  const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        child: Text(
+                          "Батырма",
+                          style: Styles.headLineStyle2.copyWith(color: Colors.white),
+                        ),
                       ),
+                      onTap: () {
+                          Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const LoginPage(),
+                                                      ),
+                                                    );
+                      },
                     ),
-                  ],
-                ),
-                SizedBox(height: 15,),
-                 Container(
-                    width: double.infinity,
-                    height: 290,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 22,
-                    ),
-                    decoration: ShapeDecoration(
-                      color: Styles.greyColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                    ),
-                    child: Icon(Icons.photo, size: 50,)
-                  ),
-                SizedBox(height: 50,),
-                Center(
-                  child: DefaultTextStyle(
-                      style: Styles.headLineStyle2.copyWith( fontWeight: FontWeight.bold,),
-                      child: const Text(
-                        "Heading about being a part of smtg big",
-                      )),
-                ),
-                const SizedBox(height: 40,),
-                Center(
-                  child: DefaultTextStyle(
-                      style: Styles.headLineStyle3.copyWith(),
-                      child: const Text(
-                        "Our communities is the best place to find soulmates. Just take a courage and step to a better life.",
-                        textAlign: TextAlign.center,
-                      )),
-                ),
-                const SizedBox(height: 80,),
-                
-                  Row(
+                    const SizedBox(height: 30,),
+                    Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleContainer(color: Styles.greyColor,),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       CircleContainer(color: Styles.greyColor,),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       CircleContainer(color: Styles.greyColorButton),
           
                     ],
                   ),
-                const SizedBox(height: 20,),
-                InkWell(
-                    child: Container(
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 22,
-                      ),
-                      decoration:  ShapeDecoration(
-                        color: Styles.greyColorButton,
-                        shape:  const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                      ),
-                      child: Text(
-                        "Next",
-                        style: Styles.headLineStyle2.copyWith(color: Colors.white),
-                      ),
-                    ),
-                    onTap: () {
-                        Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const EndOnBoarding(),
-                                                    ),
-                                                  );
-                    },
-                  ),
-                
-              ],
-            ),
-          
+          ]
         ),
-        // Foreground widget here
       ),
     );
   }

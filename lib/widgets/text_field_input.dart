@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/app_styles.dart';
+
 class TextFieldInput extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool isPass;
@@ -16,11 +18,11 @@ class TextFieldInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Colors.black),
+      style:  const TextStyle(color: Colors.black),
       controller: textEditingController,
       decoration: InputDecoration(
           hintText: hintText,
-          
+          prefixIcon: Image.asset("assets/images/call.png"),
           labelText: "",
           fillColor: Colors.white,
           filled: true,

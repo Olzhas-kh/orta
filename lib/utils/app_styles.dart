@@ -5,6 +5,8 @@ class Styles{
   static Color primaryColor = primary;
   static Color textColor = const Color(0xFF3b3b3b);
   static Color greyColor = const Color.fromARGB(255, 178, 174, 174);
+  static Color white = const Color.fromARGB(255, 255, 255, 255);
+  static Color black = const Color.fromARGB(0, 0, 0, 0);
   static Color greyColorButton = const Color.fromARGB(255, 105, 103, 103);
   static Color bgColor = const Color(0xFFeeedf2);
   static Color blueColor = const Color(0xFF526799);
