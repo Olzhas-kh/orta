@@ -106,7 +106,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const VerifyCodePage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const VerifyCodePage()));
 
                 },
               ),

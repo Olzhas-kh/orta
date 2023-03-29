@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:orta/screens/fill_form/fill_form1.dart';
 
 import 'package:orta/screens/login_page.dart';
 import 'package:orta/screens/registration_page.dart';
 import 'package:orta/widgets/text_field_input_verifycode.dart';
+import 'package:pinput/pinput.dart';
 
 import '../utils/app_styles.dart';
 
@@ -73,39 +75,29 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
               const SizedBox(
                 height: 30,
               ),
-              Form(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 52,
-                      width: 48,
-                      child: TextFieldInputVerifyCode(textEditingController: _verifyNumberController1)
-                    ),
-                    const SizedBox(width: 15,),
-                    SizedBox(
-                      height: 52,
-                      width: 48,
-                      child: TextFieldInputVerifyCode(textEditingController: _verifyNumberController2)
-                    ),
-                                        const SizedBox(width: 15,),
-
-                    SizedBox(
-                      height: 52,
-                      width: 48,
-                      child: TextFieldInputVerifyCode(textEditingController: _verifyNumberController3)
-                    ),
-                                        const SizedBox(width: 15,),
-
-                    SizedBox(
-                      height: 52,
-                      width: 48,
-                      child: TextFieldInputVerifyCode(textEditingController: _verifyNumberController4)
-                    ),
-                    
-                  ],
+              Center(
+              child: Pinput(
+                
+                length: 4,
+                onCompleted: (value) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const FillForm1()));
+                },
+                defaultPinTheme: PinTheme(
+                  
+                  width: 47,
+                  height: 56,
+                  textStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color.fromARGB(255, 240, 239, 239),
+                  ),
                 ),
               ),
+            ),
               const SizedBox(
                 height: 15,
               ),
