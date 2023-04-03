@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:orta/screens/splash_screens/onboarding2.dart';
 import 'package:orta/utils/app_styles.dart';
 import 'package:orta/widgets/circle_container.dart';
@@ -19,7 +20,7 @@ class OnBoarding1 extends StatelessWidget {
          SizedBox(
             height: 400,
             width: double.infinity,
-            child: Center(child: Image.asset("assets/images/icon.png"))),
+            child: Center(child: SvgPicture.asset("assets/images/icon_onboarding.svg"))),
             
             const SizedBox(height: 50,),
             Text("Heading about participating in events",style: Styles.headLineStyle2.copyWith(fontSize: 20, fontWeight: FontWeight.bold,),),

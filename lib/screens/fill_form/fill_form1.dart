@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orta/screens/fill_form/fill_form2.dart';
 import 'package:orta/utils/app_styles.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
@@ -191,7 +192,8 @@ GestureDetector(
                         ),
                       ),
                       onTap: () {
-                         
+                         Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const FillForm2()));
                       },
                     ),
             
