@@ -1,6 +1,7 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:orta/screens/events.dart';
+import 'package:orta/screens/my_events_screens/my_events_screen.dart';
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
 
@@ -12,7 +13,7 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget> [
     const Events(),
-    const Text('Favorite'),
+    const MyEventsPage(),
     const Text('Notifications'),
     const Text('Profile'),
   ];
