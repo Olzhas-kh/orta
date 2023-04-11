@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/fill_form/fill_form2.dart';
-import 'package:orta/utils/app_styles.dart';
+import 'package:orta/resources/app_styles.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
-import 'package:orta/widgets/text_field_input.dart';
 import 'package:orta/widgets/text_field_input_name.dart';
 
 class FillForm1 extends StatefulWidget {
@@ -18,7 +18,8 @@ final TextEditingController _nameTextEditingController =
     TextEditingController();
 final TextEditingController _dateTextEditingController =
     TextEditingController();
- bool _isChosen = true;
+bool _isChosen = true;
+
 class _FillForm1State extends State<FillForm1> {
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _FillForm1State extends State<FillForm1> {
                     Navigator.pop(context);
                   },
                   child: SvgPicture.asset(
-                    "assets/images/back_icon.svg",
+                    AppSvgImages.backIcon,
                     width: 24,
                     height: 24,
                   ),
@@ -114,9 +115,10 @@ class _FillForm1State extends State<FillForm1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-GestureDetector(
+                GestureDetector(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 55),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 55),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -141,15 +143,15 @@ GestureDetector(
                 const SizedBox(
                   width: 15,
                 ),
-               
                 GestureDetector(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 55),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 55),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       border: Border.all(
                           color:
-                              _isChosen ?Styles.greyColor : Styles.greyColor),
+                              _isChosen ? Styles.greyColor : Styles.greyColor),
                       borderRadius: BorderRadius.circular(20),
                       color: _isChosen ? Styles.white : Styles.greyColor,
                     ),
@@ -166,37 +168,34 @@ GestureDetector(
                     });
                   },
                 ),
-                
-               
               ],
             ),
             const SizedBox(
-                  height: 30,
-                ),
+              height: 30,
+            ),
             InkWell(
-                      child: Container(
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 18,
-                        ),
-                        decoration:  ShapeDecoration(
-                          color: Styles.greyColorButton,
-                          shape:  const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                        ),
-                        child: Text(
-                          "Батырма",
-                          style: Styles.headLineStyle2.copyWith(color: Colors.white),
-                        ),
-                      ),
-                      onTap: () {
-                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const FillForm2()));
-                      },
-                    ),
-            
+              child: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 18,
+                ),
+                decoration: ShapeDecoration(
+                  color: Styles.greyColorButton,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                ),
+                child: Text(
+                  "Батырма",
+                  style: Styles.headLineStyle2.copyWith(color: Colors.white),
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const FillForm2()));
+              },
+            ),
           ],
         ),
       ),

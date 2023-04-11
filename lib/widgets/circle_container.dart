@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orta/utils/app_styles.dart';
+import 'package:orta/resources/app_styles.dart';
 class CircleContainer extends StatelessWidget {
   
   const CircleContainer({super.key, required this.color});

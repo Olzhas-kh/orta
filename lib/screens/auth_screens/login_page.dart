@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
-import 'package:orta/screens/login_page.dart';
-import 'package:orta/screens/registration_page.dart';
-import 'package:orta/screens/verify_code.dart';
+import 'package:orta/screens/auth_screens/registration_page.dart';
 
-import '../utils/app_styles.dart';
-import '../widgets/text_field_input.dart';
+import '../../resources/app_styles.dart';
+import '../../widgets/text_field_input.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -20,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _telephoneNumberController = TextEditingController();
-  bool _isLoading = false;
   bool _passwordVisible = false;
   @override
   void dispose() {
@@ -90,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                     hintText: 'Пароль',
                     labelText: "",
-                              prefixIcon: Image.asset("assets/images/key.png"),
+                              prefixIcon: Image.asset(AppPngImages.key),
 
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -179,9 +176,9 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Image.asset("assets/images/gmail.png"),
+                Image.asset(AppPngImages.gmail),
                 const SizedBox(width: 15,),
-                Image.asset("assets/images/icloud.png"),
+                Image.asset(AppPngImages.icloud),
                 
               ],),
               
@@ -197,47 +194,3 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-// TextField(
-//                 style: TextStyle(color: Colors.black),
-//                 controller: _passwordController,
-//                 decoration: InputDecoration(
-//                     hintText: 'Enter your password',
-//                     labelText: "",
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         // Based on passwordVisible state choose the icon
-//                         _passwordVisible
-//                             ? Icons.visibility
-//                             : Icons.visibility_off,
-//                         color: Colors.grey,
-//                       ),
-//                       onPressed: () {
-//                         // Update the state i.e. toogle the state of passwordVisible variable
-//                         setState(() {
-//                           _passwordVisible = !_passwordVisible;
-//                         });
-//                       },
-//                     ),
-//                     fillColor: Colors.white,
-                    
-//                     filled: true,
-//                     contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-//                     focusedBorder: OutlineInputBorder(
-                      
-//                       borderRadius: BorderRadius.circular(10.0),
-//                     ),
-//                     enabledBorder: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(10.0),
-//                     ),
-//                     errorBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         borderSide:
-//                             const BorderSide(color: Colors.red, width: 2.0)),
-//                     focusedErrorBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         borderSide:
-//                             const BorderSide(color: Colors.red, width: 2.0)),
-//                     floatingLabelBehavior: FloatingLabelBehavior.always),
-//                 keyboardType: TextInputType.text,
-//                 obscureText: !_passwordVisible,
-//               ),

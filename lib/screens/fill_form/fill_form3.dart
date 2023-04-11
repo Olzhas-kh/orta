@@ -1,9 +1,9 @@
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/events.dart';
-import 'package:orta/screens/fill_form/fill_form2.dart';
-import 'package:orta/utils/app_styles.dart';
+import 'package:orta/resources/app_styles.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
 import 'package:orta/widgets/text_field_input_name.dart';
@@ -52,7 +52,7 @@ class _FillForm3State extends State<FillForm3> {
                     Navigator.pop(context);
                   },
                   child: SvgPicture.asset(
-                    "assets/images/back_icon.svg",
+                    AppSvgImages.backIcon,
                     width: 24,
                     height: 24,
                   ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orta/resources/app_svg_images.dart';
 
-import '../utils/app_styles.dart';
+import '../resources/app_styles.dart';
 
 class Events extends StatefulWidget {
   const Events({super.key});
@@ -23,12 +24,12 @@ const List<String> cities = [
   "Semei",
   "Oskemen",
   "Kokshetau",
-  
 ];
-class _EventsState extends State<Events> {
-    final TextEditingController _searchController = TextEditingController();
 
-    List<IconData> icons = [
+class _EventsState extends State<Events> {
+  final TextEditingController _searchController = TextEditingController();
+
+  List<IconData> icons = [
     Icons.home,
     Icons.explore,
     Icons.search,
@@ -41,7 +42,7 @@ class _EventsState extends State<Events> {
     Icons.person,
   ];
   int current = 0;
-   final List<String> sportList = <String> [
+  final List<String> sportList = <String>[
     "Football",
     "Volleyball",
     "Chess",
@@ -53,41 +54,35 @@ class _EventsState extends State<Events> {
     "Judo",
     "Badminton"
   ];
-      String dropdownValue = cities.first;
+  String dropdownValue = cities.first;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Styles.white,
       appBar: AppBar(
-        elevation: 0,
-        leading: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 13),
-              child: SvgPicture.asset("assets/images/vector_icon_logo.svg"),
-              
-            ),
-            SizedBox(width: 5,),
-            
-
-          ],
-        ),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: DropdownButton<String>(
+          elevation: 0,
+          leading: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 13),
+                child: SvgPicture.asset(AppSvgImages.vectorIconLogo),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+            ],
+          ),
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: DropdownButton<String>(
                   value: dropdownValue,
-                    underline: const SizedBox(),
-            
-                  icon: 
-                    Icon(Icons.arrow_downward),
-                  
-                  
+                  underline: const SizedBox(),
+                  icon: const Icon(Icons.arrow_downward),
                   elevation: 16,
                   style: const TextStyle(color: Colors.black, fontSize: 16),
-                  
                   onChanged: (String? value) {
                     // This is called when the user selects an item.
                     setState(() {
@@ -97,31 +92,29 @@ class _EventsState extends State<Events> {
                   items: cities.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: 
-                         Text(value,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                      
+                      child: Text(
+                        value,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     );
                   }).toList(),
                 ),
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          backgroundColor: Styles.white),
 
-        backgroundColor: Styles.white
-        ),
-      
       body: Container(
         width: double.infinity,
         height: double.infinity,
         margin: const EdgeInsets.all(5),
         child: Column(
           children: [
-                Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                onChanged: (value) {
-                  
-                },
+                onChanged: (value) {},
                 controller: _searchController,
                 decoration: const InputDecoration(
                     labelText: "Найти ближайшее мероприятия",
@@ -131,7 +124,10 @@ class _EventsState extends State<Events> {
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
+
             /// CUSTOM TABBAR
             SizedBox(
               width: double.infinity,
@@ -178,92 +174,74 @@ class _EventsState extends State<Events> {
                             ),
                           ),
                         ),
-                        
                       ],
                     );
                   }),
             ),
 
-             Expanded(
-               child: EventCalendar(
-                    calendarType: CalendarType.GREGORIAN,
-                    calendarLanguage: 'en',
-                    headerOptions: HeaderOptions(
-                      weekDayStringType: WeekDayStringTypes.SHORT
-             
-                    ),
-                    dayOptions: DayOptions(
-                      selectedBackgroundColor: Styles.greyColor,
-                      weekDaySelectedColor: Colors.black,
-                    ),
-                    eventOptions: EventOptions(
-                      loadingWidget: () {
-                        return Container();
-                      },
-                    ),
-                    onChangeDateTime: (p0) {
-                      
-                    },
-                    calendarOptions: CalendarOptions(
-                      viewType: ViewType.DAILY
-                      
-                    ),
-                    
-                    events: [
-                      Event(
-                        child:  ListView.builder(
-                    itemCount: 15,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Row(
-                      children: [
-                        Container(
-                      decoration: BoxDecoration(
-                        
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 178, 174, 174)
-                      ),
-                      width: 80,
-                      height: 80,
-                      margin: EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          "Card $index",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      
-                      
-                    ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const[
-                            Text("31 март, 19:00 - 21:00"),
-                            SizedBox(height: 10),
-                            Text("Мастер класс по UX/UI design"),
-                            SizedBox(height: 10),
-                            Text("Мастер класс"),
-                          ],
-                        ),
-                        
-                      ],
-                    ),
-                  ),
-                        dateTime: CalendarDateTime(
-                year: 2023,
-                month: 3,
-                day: 31,
+            Expanded(
+              child: EventCalendar(
                 calendarType: CalendarType.GREGORIAN,
-                        ),
+                calendarLanguage: 'en',
+                headerOptions:
+                    HeaderOptions(weekDayStringType: WeekDayStringTypes.SHORT),
+                dayOptions: DayOptions(
+                  selectedBackgroundColor: Styles.greyColor,
+                  weekDaySelectedColor: Colors.black,
+                ),
+                eventOptions: EventOptions(
+                  loadingWidget: () {
+                    return Container();
+                  },
+                ),
+                onChangeDateTime: (p0) {},
+                calendarOptions: CalendarOptions(viewType: ViewType.DAILY),
+                events: [
+                  Event(
+                    child: ListView.builder(
+                      itemCount: 15,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color:
+                                    const Color.fromARGB(255, 178, 174, 174)),
+                            width: 80,
+                            height: 80,
+                            margin: const EdgeInsets.all(10),
+                            child: Center(
+                              child: Text(
+                                "Card $index",
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text("31 март, 19:00 - 21:00"),
+                              SizedBox(height: 10),
+                              Text("Мастер класс по UX/UI design"),
+                              SizedBox(height: 10),
+                              Text("Мастер класс"),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    dateTime: CalendarDateTime(
+                      year: 2023,
+                      month: 3,
+                      day: 31,
+                      calendarType: CalendarType.GREGORIAN,
+                    ),
                   ),
-             ),
-            
-
-
-
-
+                ],
+              ),
+            ),
 
             /// MAIN BODY
             // Container(
@@ -294,27 +272,26 @@ class _EventsState extends State<Events> {
           ],
         ),
       ),
-    
-      
+
       // ListView(
       //   children: [
       //     const SizedBox(height: 16,),
-          // Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: TextField(
-          //       onChanged: (value) {
-                  
-          //       },
-          //       controller: _searchController,
-          //       decoration: const InputDecoration(
-          //           labelText: "Найти ближайшее мероприятия",
-          //           hintText: "Найти ближайшее мероприятия",
-          //           prefixIcon: Icon(Icons.search),
-          //           border: OutlineInputBorder(
-          //               borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-          //     ),
-          //   ),
-          //   const SizedBox(height: 16,),
+      // Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: TextField(
+      //       onChanged: (value) {
+
+      //       },
+      //       controller: _searchController,
+      //       decoration: const InputDecoration(
+      //           labelText: "Найти ближайшее мероприятия",
+      //           hintText: "Найти ближайшее мероприятия",
+      //           prefixIcon: Icon(Icons.search),
+      //           border: OutlineInputBorder(
+      //               borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+      //     ),
+      //   ),
+      //   const SizedBox(height: 16,),
       //       SingleChildScrollView(
       //     child: Column(
       //       mainAxisSize: MainAxisSize.min,
@@ -326,7 +303,7 @@ class _EventsState extends State<Events> {
       //             scrollDirection: Axis.horizontal,
       //             itemBuilder: (context, index) => Container(
       //               decoration: BoxDecoration(
-                      
+
       //                 borderRadius: BorderRadius.circular(26),
       //                 color: Color.fromARGB(255, 178, 174, 174)
       //               ),
@@ -338,13 +315,12 @@ class _EventsState extends State<Events> {
       //                   style: TextStyle(color: Colors.white),
       //                 ),
       //               ),
-                    
-                    
+
       //             ),
       //           ),
       //         ),
       //         Flexible(
-      //           child: 
+      //           child:
       // ListView.builder(
       //             itemCount: 15,
       //             physics: NeverScrollableScrollPhysics(),
@@ -353,7 +329,7 @@ class _EventsState extends State<Events> {
       //               children: [
       //                 Container(
       //               decoration: BoxDecoration(
-                      
+
       //                 borderRadius: BorderRadius.circular(10),
       //                 color: Color.fromARGB(255, 178, 174, 174)
       //               ),
@@ -366,8 +342,7 @@ class _EventsState extends State<Events> {
       //                   style: TextStyle(color: Colors.white),
       //                 ),
       //               ),
-                    
-                    
+
       //             ),
       //                 Column(
       //                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,7 +354,7 @@ class _EventsState extends State<Events> {
       //                     Text("Lorem ipsum dolor sit"),
       //                   ],
       //                 ),
-                      
+
       //               ],
       //             ),
       //           ),

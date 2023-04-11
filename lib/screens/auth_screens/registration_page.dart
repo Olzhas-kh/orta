@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:orta/screens/fill_form/fill_form1.dart';
+import 'package:orta/resources/app_png_images.dart';
+import 'package:orta/screens/bottom_bar.dart';
+import 'package:orta/screens/auth_screens/login_page.dart';
+import 'package:orta/screens/auth_screens/verify_code.dart';
 
-import 'package:orta/screens/login_page.dart';
-import 'package:orta/screens/registration_page.dart';
-import 'package:orta/widgets/text_field_input_verifycode.dart';
-import 'package:pinput/pinput.dart';
+import '../../resources/app_styles.dart';
+import '../../widgets/text_field_input.dart';
 
-import '../utils/app_styles.dart';
-
-class VerifyCodePage extends StatefulWidget {
-  const VerifyCodePage({super.key});
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
   @override
-  State<VerifyCodePage> createState() => _VerifyCodePageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _VerifyCodePageState extends State<VerifyCodePage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _verifyNumberController1 = TextEditingController();
-  final TextEditingController _verifyNumberController2 = TextEditingController();
-  final TextEditingController _verifyNumberController3 = TextEditingController();
-  final TextEditingController _verifyNumberController4 = TextEditingController();
-  
+  final TextEditingController _telephoneNumberController =
+      TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _verifyNumberController1.dispose();
-    _verifyNumberController2.dispose();
-    _verifyNumberController3.dispose();
-    _verifyNumberController4.dispose();
+    _telephoneNumberController.dispose();
   }
 
   @override
@@ -45,59 +39,49 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  IconButton(icon: const Icon(Icons.arrow_back),
-                  onPressed: (){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const RegistrationPage()));
-                  }
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const BottomBar(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Зайти как гость",
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
-                  const Text(
-                    "Верификация",
-                    style: TextStyle(fontSize: 15),
+                  const SizedBox(
+                    width: 5,
                   ),
+                  const Icon(Icons.arrow_forward)
                 ],
               ),
               const SizedBox(
                 height: 80,
               ),
               Text(
-                'Введите код из смс',
+                'Registration',
                 style: Styles.headLineStyle1,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                "Мы отправили код на номер +7 777 002 45 56",
+                "Введите номер телефона, на него придет код подтверждения",
                 style: TextStyle(color: Styles.greyColor),
               ),
               const SizedBox(
                 height: 30,
               ),
-              Center(
-              child: Pinput(
-                
-                length: 4,
-                onCompleted: (value) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const FillForm1()));
-                },
-                defaultPinTheme: PinTheme(
-                  
-                  width: 47,
-                  height: 56,
-                  textStyle: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color.fromARGB(255, 240, 239, 239),
-                  ),
-                ),
+              TextFieldInput(
+                hintText: 'Номер телефона',
+                textInputType: TextInputType.number,
+                textEditingController: _telephoneNumberController,
               ),
-            ),
               const SizedBox(
                 height: 15,
               ),
@@ -115,11 +99,14 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
                     ),
                   ),
                   child: Text(
-                    "Отправить повторно",
+                    "Получить код",
                     style: Styles.headLineStyle2.copyWith(color: Colors.white),
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const VerifyCodePage()));
+                },
               ),
               const SizedBox(
                 height: 10,
@@ -153,11 +140,11 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/gmail.png"),
+                  Image.asset(AppPngImages.gmail),
                   const SizedBox(
                     width: 15,
                   ),
-                  Image.asset("assets/images/icloud.png"),
+                  Image.asset(AppPngImages.icloud),
                 ],
               ),
               const SizedBox(

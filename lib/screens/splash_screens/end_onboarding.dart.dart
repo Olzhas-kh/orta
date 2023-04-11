@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:orta/screens/bottom_bar.dart';
-import 'package:orta/screens/login_page.dart';
-import 'package:orta/screens/registration_page.dart';
+import 'package:orta/resources/app_png_images.dart';
+import 'package:orta/screens/auth_screens/login_page.dart';
+import 'package:orta/screens/auth_screens/registration_page.dart';
 
-import '../../utils/app_styles.dart';
+import '../../resources/app_styles.dart';
 
 class EndOnBoarding extends StatelessWidget {
   const EndOnBoarding({super.key});
@@ -31,7 +31,7 @@ class EndOnBoarding extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               image: const DecorationImage(
                                
-                                image: AssetImage("assets/images/logo.png")
+                                image: AssetImage(AppPngImages.logo)
                               )
                             ),
                           ),
@@ -40,11 +40,11 @@ class EndOnBoarding extends StatelessWidget {
                         height: 50,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/orta_app.png")
+                            image: AssetImage(AppPngImages.ortaApp)
                           )
                         ),
                       ),
-                      Text("More than a community", style: TextStyle(color: Colors.black,fontSize: 20, fontWeight: FontWeight.bold),),
+                      const Text("More than a community", style: TextStyle(color: Colors.black,fontSize: 20, fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),
@@ -64,7 +64,7 @@ class EndOnBoarding extends StatelessWidget {
                   ),
                   decoration:  ShapeDecoration(
                     color: Styles.greyColorButton,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
@@ -94,7 +94,7 @@ class EndOnBoarding extends StatelessWidget {
                   ),
                   decoration:  ShapeDecoration(
                     color: Styles.greyColorButton,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),

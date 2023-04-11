@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:orta/resources/app_png_images.dart';
 
-import '../utils/app_styles.dart';
 
 class TextFieldInput extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -22,7 +22,7 @@ class TextFieldInput extends StatelessWidget {
       controller: textEditingController,
       decoration: InputDecoration(
           hintText: hintText,
-          prefixIcon: Image.asset("assets/images/call.png"),
+          prefixIcon: Image.asset(AppPngImages.call),
           labelText: "",
           fillColor: Colors.white,
           filled: true,

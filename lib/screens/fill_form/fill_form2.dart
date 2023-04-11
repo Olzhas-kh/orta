@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orta/screens/fill_form/fill_form3.dart';
-import 'package:orta/utils/app_styles.dart';
+import 'package:orta/resources/app_styles.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
-import 'package:orta/widgets/text_field_input_name.dart';
+
+import '../../resources/app_svg_images.dart';
 
 class FillForm2 extends StatefulWidget {
   const FillForm2({super.key});
@@ -52,7 +53,7 @@ class _FillForm2State extends State<FillForm2> {
                     Navigator.pop(context);
                   },
                   child: SvgPicture.asset(
-                    "assets/images/back_icon.svg",
+                     AppSvgImages.backIcon,
                     width: 24,
                     height: 24,
                     
