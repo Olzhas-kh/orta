@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/login_page.dart';
@@ -13,6 +15,26 @@ class RegistrationPage extends StatefulWidget {
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+Future<void> signUpWithPhoneNumber(String phoneNumber) async {
+  await _auth.verifyPhoneNumber(
+    phoneNumber: phoneNumber,
+    verificationCompleted: (PhoneAuthCredential credential) async {
+      await _auth.signInWithCredential(credential);
+      Fluttertoast.showToast(msg: "Phone number automatically verified");
+    },
+    verificationFailed: (FirebaseAuthException e) {
+      Fluttertoast.showToast(msg: e.toString());
+    },
+    codeSent: (String verificationId, int? resendToken) {
+      // Save the verification ID somewhere to use later
+      // Navigate to the verification screen to enter the code
+    },
+    codeAutoRetrievalTimeout: (String verificationId) {},
+  );
+}
+
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
@@ -104,8 +126,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const VerifyCodePage()));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                      // builder: (context) => const VerifyCodePage()));
+                      signUpWithPhoneNumber(_telephoneNumberController.text);
                 },
               ),
               const SizedBox(
