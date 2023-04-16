@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/registration_page.dart';
@@ -25,6 +27,16 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _telephoneNumberController.dispose();
+  }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> signInWithPhoneNumber(String verificationId, String verificationCode) async {
+  PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    verificationId: verificationId,
+    smsCode: verificationCode,
+  );
+  await _auth.signInWithCredential(credential);
+  Fluttertoast.showToast(msg: "Signed in successfully");
   }
 
   @override
@@ -160,8 +172,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const BottomBar()));
-
+                  // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const BottomBar()));
+                  signInWithPhoneNumber(_telephoneNumberController.text, _passwordController.text);
                 },
               ),
               const SizedBox(

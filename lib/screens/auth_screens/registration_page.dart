@@ -126,9 +126,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                      // builder: (context) => const VerifyCodePage()));
+                
                       signUpWithPhoneNumber(_telephoneNumberController.text);
+                      Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const LoginPage()));    
                 },
               ),
               const SizedBox(
