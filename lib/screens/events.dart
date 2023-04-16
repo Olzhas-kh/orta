@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
+import 'package:orta/widgets/widgets_all.dart';
 
 import '../resources/app_styles.dart';
 
@@ -29,18 +30,7 @@ const List<String> cities = [
 class _EventsState extends State<Events> {
   final TextEditingController _searchController = TextEditingController();
 
-  List<IconData> icons = [
-    Icons.home,
-    Icons.explore,
-    Icons.search,
-    Icons.feed,
-    Icons.post_add,
-    Icons.local_activity,
-    Icons.settings,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-  ];
+ 
   int current = 0;
   final List<String> sportList = <String>[
     "Football",
@@ -113,16 +103,7 @@ class _EventsState extends State<Events> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) {},
-                controller: _searchController,
-                decoration: const InputDecoration(
-                    labelText: "Найти ближайшее мероприятия",
-                    hintText: "Найти ближайшее мероприятия",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
+              child: textFieldInputText(_searchController, "Найти ближайшее мероприятия", const Icon(Icons.search),null),
             ),
             const SizedBox(
               height: 16,
@@ -243,128 +224,10 @@ class _EventsState extends State<Events> {
               ),
             ),
 
-            /// MAIN BODY
-            // Container(
-            //   margin: const EdgeInsets.only(top: 30),
-            //   width: double.infinity,
-            //   height: 550,
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Icon(
-            //         icons[current],
-            //         size: 200,
-            //         color: Colors.deepPurple,
-            //       ),
-            //       const SizedBox(
-            //         height: 10,
-            //       ),
-            //       Text(
-            //         sportList[current],
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w500,
-            //             fontSize: 30,
-            //             color: Colors.deepPurple),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            
           ],
         ),
       ),
-
-      // ListView(
-      //   children: [
-      //     const SizedBox(height: 16,),
-      // Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: TextField(
-      //       onChanged: (value) {
-
-      //       },
-      //       controller: _searchController,
-      //       decoration: const InputDecoration(
-      //           labelText: "Найти ближайшее мероприятия",
-      //           hintText: "Найти ближайшее мероприятия",
-      //           prefixIcon: Icon(Icons.search),
-      //           border: OutlineInputBorder(
-      //               borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-      //     ),
-      //   ),
-      //   const SizedBox(height: 16,),
-      //       SingleChildScrollView(
-      //     child: Column(
-      //       mainAxisSize: MainAxisSize.min,
-      //       children: [
-      //         SizedBox(
-      //           height: 55,
-      //           child: ListView.builder(
-      //             itemCount: 10,
-      //             scrollDirection: Axis.horizontal,
-      //             itemBuilder: (context, index) => Container(
-      //               decoration: BoxDecoration(
-
-      //                 borderRadius: BorderRadius.circular(26),
-      //                 color: Color.fromARGB(255, 178, 174, 174)
-      //               ),
-      //               width: 150,
-      //               margin: EdgeInsets.all(10),
-      //               child: Center(
-      //                 child: Text(
-      //                   "${sportList[index]}",
-      //                   style: TextStyle(color: Colors.white),
-      //                 ),
-      //               ),
-
-      //             ),
-      //           ),
-      //         ),
-      //         Flexible(
-      //           child:
-      // ListView.builder(
-      //             itemCount: 15,
-      //             physics: NeverScrollableScrollPhysics(),
-      //             shrinkWrap: true,
-      //             itemBuilder: (context, index) => Row(
-      //               children: [
-      //                 Container(
-      //               decoration: BoxDecoration(
-
-      //                 borderRadius: BorderRadius.circular(10),
-      //                 color: Color.fromARGB(255, 178, 174, 174)
-      //               ),
-      //               width: 80,
-      //               height: 80,
-      //               margin: EdgeInsets.all(10),
-      //               child: Center(
-      //                 child: Text(
-      //                   "Card $index",
-      //                   style: TextStyle(color: Colors.white),
-      //                 ),
-      //               ),
-
-      //             ),
-      //                 Column(
-      //                   crossAxisAlignment: CrossAxisAlignment.start,
-      //                   children: const[
-      //                     Text("Title"),
-      //                     SizedBox(height: 10),
-      //                     Text("Lorem Ipsum is simply dummy text  "),
-      //                     SizedBox(height: 10),
-      //                     Text("Lorem ipsum dolor sit"),
-      //                   ],
-      //                 ),
-
-      //               ],
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-
-      //   ],
-      // ),
     );
   }
 }

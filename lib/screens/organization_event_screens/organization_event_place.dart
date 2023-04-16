@@ -1,20 +1,21 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
-import 'package:orta/screens/organization_event_screens/organization_event_interest.dart';
+import 'package:orta/screens/organization_event_screens/organization_event_time.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
 
-class OrganizationEventNamePage extends StatefulWidget {
-  const OrganizationEventNamePage({super.key});
+class OrganizationEventPlacePage extends StatefulWidget {
+  const OrganizationEventPlacePage({super.key});
 
   @override
-  State<OrganizationEventNamePage> createState() =>
-      _OrganizationEventNamePageState();
+  State<OrganizationEventPlacePage> createState() => _OrganizationEventPlacePageState();
 }
-final TextEditingController _nameController = TextEditingController();
+final TextEditingController _placeController = TextEditingController();
 
-class _OrganizationEventNamePageState extends State<OrganizationEventNamePage> {
+class _OrganizationEventPlacePageState extends State<OrganizationEventPlacePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +41,11 @@ class _OrganizationEventNamePageState extends State<OrganizationEventNamePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              indicatorTab(Styles.greyLight),
+              const RowSpacer(1),
+              indicatorTab(Styles.greyLight),
+              const RowSpacer(1),
               indicatorTab(Styles.greyDark),
-              const RowSpacer(1),
-              indicatorTab(Styles.greyLight),
-              const RowSpacer(1),
-              indicatorTab(Styles.greyLight),
               const RowSpacer(1),
               indicatorTab(Styles.greyLight),
               const RowSpacer(1),
@@ -52,13 +53,11 @@ class _OrganizationEventNamePageState extends State<OrganizationEventNamePage> {
             ],
           ),
           const ColumnSpacer(2),
-          organizationTitleText(context, "Іс-шараның атауын қойыңыз"),
+          organizationTitleText(context, "Өтетін орнын таңданыз"),
           const ColumnSpacer(1.5),
-          const Text("Адамдарға топтың не туралы екенін анық түсінуге мүмкіндік беретін атауды таңдаңыз"),
-                    const ColumnSpacer(2),
-          textFieldInputText(_nameController, "Іс-шара атауы", null, null),
-                    const ColumnSpacer(1),
-                     Text("Кемінде 5 символ еңгізіңіз",style: Theme.of(context).textTheme.bodySmall,)
+          
+          textFieldInputText(_placeController, "Өтетін орны", null, const Icon(Icons.location_on_outlined)),
+                    
 
 
 
@@ -71,9 +70,9 @@ class _OrganizationEventNamePageState extends State<OrganizationEventNamePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           backButton(context),
-          nextButton(context,const OrganizationEventInterestPage())
+          nextButton(context,const OrganizationEventTimePage())
         ]),
       ),
     );
-  }
+}
 }
