@@ -1,13 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/login_page.dart';
-import 'package:orta/screens/auth_screens/verify_code.dart';
 
-import '../../resources/app_styles.dart';
-import '../../widgets/text_field_input.dart';
+import 'package:orta/resources/app_styles.dart';
+import 'package:orta/widgets/text_field_input.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -15,39 +14,21 @@ class RegistrationPage extends StatefulWidget {
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future<void> signUpWithPhoneNumber(String phoneNumber) async {
-  await _auth.verifyPhoneNumber(
-    phoneNumber: phoneNumber,
-    verificationCompleted: (PhoneAuthCredential credential) async {
-      await _auth.signInWithCredential(credential);
-      Fluttertoast.showToast(msg: "Phone number automatically verified");
-    },
-    verificationFailed: (FirebaseAuthException e) {
-      Fluttertoast.showToast(msg: e.toString());
-    },
-    codeSent: (String verificationId, int? resendToken) {
-      // Save the verification ID somewhere to use later
-      // Navigate to the verification screen to enter the code
-    },
-    codeAutoRetrievalTimeout: (String verificationId) {},
-  );
-}
+
+  bool _passwordVisible = false;
 
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _telephoneNumberController =
+  final TextEditingController _emailNumberController =
       TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
     _passwordController.dispose();
-    _telephoneNumberController.dispose();
+    _emailNumberController.dispose();
   }
 
   @override
@@ -93,16 +74,60 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 5,
               ),
               Text(
-                "Введите номер телефона, на него придет код подтверждения",
+                "Введите email",
                 style: TextStyle(color: Styles.greyColor),
               ),
               const SizedBox(
                 height: 30,
               ),
               TextFieldInput(
-                hintText: 'Номер телефона',
-                textInputType: TextInputType.number,
-                textEditingController: _telephoneNumberController,
+                hintText: 'email',
+                textInputType: TextInputType.text,
+                textEditingController: _emailNumberController,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextField(
+                style: const TextStyle(color: Colors.black),
+                controller: _passwordController,
+                decoration: InputDecoration(
+                    hintText: 'Пароль',
+                    labelText: "",
+                    prefixIcon: Image.asset(AppPngImages.key),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0)),
+                    floatingLabelBehavior: FloatingLabelBehavior.always),
+                keyboardType: TextInputType.text,
+                obscureText: !_passwordVisible,
               ),
               const SizedBox(
                 height: 15,
@@ -121,13 +146,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                   ),
                   child: Text(
-                    "Получить код",
+                    "Registration",
                     style: Styles.headLineStyle2.copyWith(color: Colors.white),
                   ),
                 ),
                 onTap: () {
                 
-                      signUpWithPhoneNumber(_telephoneNumberController.text);
                       Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const LoginPage()));    
                 },

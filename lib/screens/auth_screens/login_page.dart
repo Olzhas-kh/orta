@@ -1,13 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/registration_page.dart';
 
-import '../../resources/app_styles.dart';
-import '../../widgets/text_field_input.dart';
-
+import 'package:orta/resources/app_styles.dart';
+import 'package:orta/widgets/text_field_input.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,26 +14,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _telephoneNumberController = TextEditingController();
+  final TextEditingController _emailNumberController =
+      TextEditingController();
   bool _passwordVisible = false;
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
     _passwordController.dispose();
-    _telephoneNumberController.dispose();
-  }
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  Future<void> signInWithPhoneNumber(String verificationId, String verificationCode) async {
-  PhoneAuthCredential credential = PhoneAuthProvider.credential(
-    verificationId: verificationId,
-    smsCode: verificationCode,
-  );
-  await _auth.signInWithCredential(credential);
-  Fluttertoast.showToast(msg: "Signed in successfully");
+    _emailNumberController.dispose();
   }
 
   @override
@@ -52,20 +38,24 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                   InkWell(
-                    onTap: (){
+                  InkWell(
+                    onTap: () {
                       Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const BottomBar(),
-                                                      ),
-                                                    );
+                        MaterialPageRoute(
+                          builder: (context) => const BottomBar(),
+                        ),
+                      );
                     },
-                    child: const Text("Зайти как гость",style: TextStyle(fontSize: 15),),),
-                  const SizedBox(width: 5,),
+                    child: const Text(
+                      "Зайти как гость",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   const Icon(Icons.arrow_forward)
                 ],
-                
               ),
               const SizedBox(
                 height: 80,
@@ -78,17 +68,16 @@ class _LoginPageState extends State<LoginPage> {
                 height: 5,
               ),
               Text(
-                "Введите номер телефона и пароль, указанные при регистрации",style: TextStyle(color: Styles.greyColor),
+                "Введите email и пароль, указанные при регистрации",
+                style: TextStyle(color: Styles.greyColor),
               ),
               const SizedBox(
                 height: 30,
               ),
-              
               TextFieldInput(
-                hintText: 'Номер телефона',
-                
-                textInputType: TextInputType.number,
-                textEditingController: _telephoneNumberController,
+                hintText: 'Email',
+                textInputType: TextInputType.text,
+                textEditingController: _emailNumberController,
               ),
               const SizedBox(
                 height: 15,
@@ -99,29 +88,24 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                     hintText: 'Пароль',
                     labelText: "",
-                              prefixIcon: Image.asset(AppPngImages.key),
-
+                    prefixIcon: Image.asset(AppPngImages.key),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        // Based on passwordVisible state choose the icon
                         _passwordVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: Colors.grey,
                       ),
                       onPressed: () {
-                        // Update the state i.e. toogle the state of passwordVisible variable
                         setState(() {
                           _passwordVisible = !_passwordVisible;
                         });
                       },
                     ),
                     fillColor: Colors.white,
-                    
                     filled: true,
                     contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     focusedBorder: OutlineInputBorder(
-                      
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -139,20 +123,26 @@ class _LoginPageState extends State<LoginPage> {
                 keyboardType: TextInputType.text,
                 obscureText: !_passwordVisible,
               ),
-                            const SizedBox(height: 15,),
-
+              const SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                   InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const RegistrationPage()));
-
-                    },
-                    child: const Text("Забыли пароль?",textAlign: TextAlign.end,)),
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const RegistrationPage()));
+                      },
+                      child: const Text(
+                        "Забыли пароль?",
+                        textAlign: TextAlign.end,
+                      )),
                 ],
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
               InkWell(
                 child: Container(
                   width: double.infinity,
@@ -160,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(
                     vertical: 16,
                   ),
-                  decoration:  ShapeDecoration(
+                  decoration: ShapeDecoration(
                     color: Styles.greyColorButton,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -172,29 +162,34 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onTap: () {
-                  // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const BottomBar()));
-                  signInWithPhoneNumber(_telephoneNumberController.text, _passwordController.text);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const BottomBar()));
                 },
               ),
               const SizedBox(
                 height: 10,
               ),
-              
               const SizedBox(
                 height: 220,
               ),
-              const Center(child:  Text("или", textAlign: TextAlign.center,)),
-              const SizedBox(height: 25,),
+              const Center(
+                  child: Text(
+                "или",
+                textAlign: TextAlign.center,
+              )),
+              const SizedBox(
+                height: 25,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Image.asset(AppPngImages.gmail),
-                const SizedBox(width: 15,),
-                Image.asset(AppPngImages.icloud),
-                
-              ],),
-              
-              
+                  Image.asset(AppPngImages.gmail),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Image.asset(AppPngImages.icloud),
+                ],
+              ),
             ],
           ),
         ),
@@ -202,7 +197,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-
-
