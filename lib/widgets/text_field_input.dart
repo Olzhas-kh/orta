@@ -22,7 +22,8 @@ class TextFieldInput extends StatelessWidget {
       controller: textEditingController,
       decoration: InputDecoration(
           hintText: hintText,
-          prefixIcon: Image.asset(AppPngImages.call),
+          prefixIcon: const Icon(Icons.email),
+          
           labelText: "",
           fillColor: Colors.white,
           filled: true,
