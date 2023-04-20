@@ -4,6 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/services/firebase_methods/auth_methods.dart';
+import 'package:orta/services/var_for_register.dart';
+import 'package:orta/utils/utils.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
 import 'package:orta/widgets/text_field_input_name.dart';
@@ -33,6 +36,43 @@ class _FillForm3State extends State<FillForm3> {
     "Badminton"
   ];
   List<String> tags = [];
+    bool _isLoading = false;
+ void signUpUser() async {
+    // set loading to true
+    setState(() {
+      _isLoading = true;
+    });
+
+    // signup user using our authmethodds
+    String res = await AuthMethods().signUpUser(
+        email: VarForRegister.email!,
+        password: VarForRegister.password!,
+        name: VarForRegister.name!,
+        gender: VarForRegister.gender!,
+        birthDay: VarForRegister.birthDay!,
+        city: VarForRegister.city!,
+        interest: tags,
+        );
+    // if string returned is sucess, user has been created
+    if (res == "success") {
+      setState(() {
+        _isLoading = false;
+      });
+      // navigate to the home screen
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const BottomBar(),
+          ),
+        );
+      
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      // show the error
+      showSnackBar(res, context);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,8 +181,7 @@ class _FillForm3State extends State<FillForm3> {
                         ),
                       ),
                       onTap: () {
-                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const BottomBar()));
+                         signUpUser();
                       },
                     ),
           ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orta/screens/fill_form/fill_form3.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
 
@@ -115,6 +116,7 @@ class _FillForm2State extends State<FillForm2> {
                          // This is called when the user selects an item.
                          setState(() {
                            dropdownValue = value!;
+                           VarForRegister.city = dropdownValue;
                          });
                        },
                        items: cities.map<DropdownMenuItem<String>>((String value) {

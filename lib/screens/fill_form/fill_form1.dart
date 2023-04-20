@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/fill_form/fill_form2.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
 import 'package:orta/widgets/text_field_input_name.dart';
@@ -137,7 +138,9 @@ class _FillForm1State extends State<FillForm1> {
                   onTap: () {
                     setState(() {
                       _isChosen = true;
+                      VarForRegister.gender = _isChosen;
                     });
+
                   },
                 ),
                 const SizedBox(
@@ -165,6 +168,8 @@ class _FillForm1State extends State<FillForm1> {
                   onTap: () {
                     setState(() {
                       _isChosen = false;
+                      VarForRegister.gender = _isChosen;
+
                     });
                   },
                 ),
@@ -192,6 +197,8 @@ class _FillForm1State extends State<FillForm1> {
                 ),
               ),
               onTap: () {
+                VarForRegister.birthDay = _dateTextEditingController.text;
+                VarForRegister.name = _nameTextEditingController.text;
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const FillForm2()));
               },
