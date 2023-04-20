@@ -6,6 +6,8 @@ import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/login_page.dart';
 
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/screens/fill_form/fill_form1.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/text_field_input.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -151,9 +153,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 onTap: () {
-                
+                      VarForRegister.email = _emailNumberController.text;
+                      VarForRegister.password = _passwordController.text;
                       Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const LoginPage()));    
+                      builder: (context) => const FillForm1()));    
                 },
               ),
               const SizedBox(
