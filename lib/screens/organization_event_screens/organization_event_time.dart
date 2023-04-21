@@ -183,8 +183,25 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               backButton(context),
-              nextButton(context, const OrganizationEventDescriptionPage(), valueToStatic() as Function)
-            ]),
+              GestureDetector(
+            onTap: () {
+            VarForAddEvents.eventDate = dateTime; 
+            VarForAddEvents.startTime = dateTime; 
+            VarForAddEvents.endTime = endDateTime;
+
+            Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => OrganizationEventDescriptionPage()));
+            },
+            child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              color: Styles.greyDark,
+            ),
+            child: const Text("Келесі"),
+          )
+        ),
+        ]),
       ),
     );
   }
@@ -207,11 +224,5 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
       initialTime: TimeOfDay(hour: endDateTime.hour, minute: endDateTime.minute),
      
       );
-  String? valueToStatic(){
-    VarForAddEvents.eventDate = dateTime; 
-    VarForAddEvents.startTime = dateTime; 
-    VarForAddEvents.endTime = endDateTime;
 
-    return VarForAddEvents.name;
-  }
 }
