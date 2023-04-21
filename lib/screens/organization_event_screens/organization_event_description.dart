@@ -202,26 +202,11 @@ class _OrganizationEventDescriptionPageState
               const ColumnSpacer(1),
               BlocConsumer<EventsBloc, EventsState>(
                 listener: (context, state) {
-                  if(state is AddEventLoading){
-                    CircularProgressIndicator();
-                  }
-                  if(state is AddEventFailed){
-                  showSnackBar(state.message, context);
-
-                  }
-                  if(state is AddEventSuccess){
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const BottomBar(),
-                      ),
-                    );
-                  }
+                  
                 },
                 builder: (context, state) {
                   return GestureDetector(
-                    onTap: () {
-                      
-                    },
+                    onTap: () {},
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 85),
@@ -250,9 +235,27 @@ class _OrganizationEventDescriptionPageState
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           backButton(context),
-          GestureDetector(
-              onTap: () {
-                context.read<EventsBloc>().add(AddEvent(
+          BlocProvider(
+            create: (context) => EventsBloc(),
+            child: BlocConsumer<EventsBloc, EventsState>(
+              listener: (context, state) {
+if (state is AddEventLoading) {
+                    CircularProgressIndicator();
+                  }
+                  if (state is AddEventFailed) {
+                    showSnackBar(state.message, context);
+                  }
+                  if (state is AddEventSuccess) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const BottomBar(),
+                      ),
+                    );
+                  }              },
+              builder: (context, state) {
+                return GestureDetector(
+                    onTap: () {
+                      context.read<EventsBloc>().add(AddEvent(
                           uid: uid,
                           name: VarForAddEvents.name!,
                           description: VarForAddEvents.description!,
@@ -264,16 +267,20 @@ class _OrganizationEventDescriptionPageState
                           count: int.parse(_countController.text),
                           price: int.parse(_costController.text),
                           format: formatValue));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 60, vertical: 16),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                        color: Styles.greyDark,
+                      ),
+                      child: const Text("Келесі"),
+                    ));
               },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(16)),
-                  color: Styles.greyDark,
-                ),
-                child: const Text("Келесі"),
-              )),
+            ),
+          ),
         ]),
       ),
     );
