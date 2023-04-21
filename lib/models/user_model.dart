@@ -27,8 +27,8 @@ class UserModel {
         "email": email,
         "city": city,
         "interest": interest,
-        "telephone": gender,
-        "adress": birthDay,
+        "gender": gender,
+        "birthDay": birthDay,
         "password": password,
       };
 
@@ -41,8 +41,8 @@ class UserModel {
       password: snapshot['password'],
       city: snapshot['city'],
       interest: snapshot['interest'],
-      gender: snapshot['telephone'],
-      birthDay: snapshot['adress'],
+      gender: snapshot['gender'],
+      birthDay: snapshot['birthDay'],
     );
   }
 }

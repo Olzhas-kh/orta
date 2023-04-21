@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
-import 'package:orta/screens/organization_event_screens/organization_event_interest.dart';
+import 'package:orta/screens/organization_event_screens/organization_event_description.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
@@ -20,6 +21,7 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
   Widget build(BuildContext context) {
     final hours = dateTime.hour.toString().padLeft(2, '0');
     final minutes = dateTime.minute.toString().padLeft(2, '0');
+    final startTime = dateTime;
     final endHours = endDateTime.hour.toString().padLeft(2, '0');
     final endMinutes = endDateTime.minute.toString().padLeft(2, '0');
     return Scaffold(
@@ -181,7 +183,7 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               backButton(context),
-              nextButton(context, const OrganizationEventInterestPage())
+              nextButton(context, const OrganizationEventDescriptionPage(), valueToStatic() as Function)
             ]),
       ),
     );
@@ -205,4 +207,11 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
       initialTime: TimeOfDay(hour: endDateTime.hour, minute: endDateTime.minute),
      
       );
+  String? valueToStatic(){
+    VarForAddEvents.eventDate = dateTime; 
+    VarForAddEvents.startTime = dateTime; 
+    VarForAddEvents.endTime = endDateTime;
+
+    return VarForAddEvents.name;
+  }
 }

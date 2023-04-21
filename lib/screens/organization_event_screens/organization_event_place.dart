@@ -3,12 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
 import 'package:orta/screens/organization_event_screens/organization_event_time.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
 
 class OrganizationEventPlacePage extends StatefulWidget {
-  const OrganizationEventPlacePage({super.key});
+  const OrganizationEventPlacePage({super.key,});
 
   @override
   State<OrganizationEventPlacePage> createState() => _OrganizationEventPlacePageState();
@@ -56,7 +57,7 @@ class _OrganizationEventPlacePageState extends State<OrganizationEventPlacePage>
           organizationTitleText(context, "Өтетін орнын таңданыз"),
           const ColumnSpacer(1.5),
           
-          textFieldInputText(_placeController, "Өтетін орны", null, const Icon(Icons.location_on_outlined)),
+          textFieldInputText(_placeController, "Өтетін орны", null, const Icon(Icons.location_on_outlined),TextInputType.text),
                     
 
 
@@ -70,9 +71,13 @@ class _OrganizationEventPlacePageState extends State<OrganizationEventPlacePage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           backButton(context),
-          nextButton(context,const OrganizationEventTimePage())
+          nextButton(context,const OrganizationEventTimePage(), valueToStatic() as Function)
         ]),
       ),
     );
 }
+String? valueToStatic(){
+    VarForAddEvents.location = _placeController.text; 
+    return VarForAddEvents.location;
+  }
 }

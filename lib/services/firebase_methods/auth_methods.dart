@@ -25,7 +25,7 @@ class AuthMethods {
           password.isNotEmpty ||
           name.isNotEmpty ||
           interest.isNotEmpty ||
-          birthDay!=null ||
+          birthDay.isNotEmpty ||
           city.isNotEmpty 
           
           ) {
@@ -66,7 +66,7 @@ class AuthMethods {
   }
 
   // logging in user
-  Future<String> loginUser({
+  Future<String> signInUser({
     required String email,
     required String password,
   }) async {

@@ -5,6 +5,8 @@ import '../resources/app_styles.dart';
 
 InkWell buttonOnboarding(
     BuildContext context, bool isNavigate, Widget pushNavigate) {
+        Uint8List? _file;
+
   return InkWell(
     child: Container(
       width: double.infinity,
@@ -99,17 +101,19 @@ Text organizationTitleText(BuildContext context, String text) {
   );
 }
 
-TextField textFieldInputText(TextEditingController textEditingController, String hintLabelText, Icon? prefixIcon, Icon? suffixIcon){
+TextField textFieldInputText(TextEditingController textEditingController, String hintLabelText, Icon? prefixIcon, Icon? suffixIcon, TextInputType textInputType){
   return TextField(
                 onChanged: (value) {},
                 controller: textEditingController,
+                keyboardType: textInputType,
                 decoration:  InputDecoration(
                     labelText: hintLabelText,
                     hintText: hintLabelText,
                     prefixIcon: prefixIcon,
                     suffixIcon: suffixIcon,
                     border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)))
+                        ),
               );
 }
 
@@ -129,11 +133,12 @@ GestureDetector backButton(BuildContext context){
   
 }
 
-GestureDetector nextButton(BuildContext context,Widget navigationPage){
+GestureDetector nextButton(BuildContext context,Widget navigationPage,Function function){
   return GestureDetector(
     onTap: () {
       Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => navigationPage));
+             function;
     },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
@@ -146,3 +151,6 @@ GestureDetector nextButton(BuildContext context,Widget navigationPage){
     );
   
 }
+
+
+
