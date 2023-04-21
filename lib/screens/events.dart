@@ -103,7 +103,7 @@ class _EventsState extends State<Events> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: textFieldInputText(_searchController, "Найти ближайшее мероприятия", const Icon(Icons.search),null),
+              child: textFieldInputText(_searchController, "Найти ближайшее мероприятия", const Icon(Icons.search),null,TextInputType.text),
             ),
             const SizedBox(
               height: 16,

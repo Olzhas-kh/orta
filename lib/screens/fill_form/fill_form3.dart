@@ -1,10 +1,11 @@
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orta/blocs/auth_bloc/auth_bloc.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/resources/app_styles.dart';
-import 'package:orta/services/firebase_methods/auth_methods.dart';
 import 'package:orta/services/var_for_register.dart';
 import 'package:orta/utils/utils.dart';
 import 'package:orta/widgets/circle_container.dart';
@@ -36,155 +37,154 @@ class _FillForm3State extends State<FillForm3> {
     "Badminton"
   ];
   List<String> tags = [];
-    bool _isLoading = false;
- void signUpUser() async {
-    // set loading to true
-    setState(() {
-      _isLoading = true;
-    });
+  
 
-    // signup user using our authmethodds
-    String res = await AuthMethods().signUpUser(
-        email: VarForRegister.email!,
-        password: VarForRegister.password!,
-        name: VarForRegister.name!,
-        gender: VarForRegister.gender!,
-        birthDay: VarForRegister.birthDay!,
-        city: VarForRegister.city!,
-        interest: tags,
-        );
-    // if string returned is sucess, user has been created
-    if (res == "success") {
-      setState(() {
-        _isLoading = false;
-      });
-      // navigate to the home screen
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const BottomBar(),
-          ),
-        );
-      
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      // show the error
-      showSnackBar(res, context);
-    }
-  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Styles.white,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset(
-                    AppSvgImages.backIcon,
-                    width: 24,
-                    height: 24,
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: Scaffold(
+        backgroundColor: Styles.white,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset(
+                      AppSvgImages.backIcon,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 65,
+                  ),
+                  CircleContainer(color: Styles.greyColorButton),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const LineContainer(
+                      color: Color.fromARGB(255, 197, 196, 196)),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CircleContainer(color: Styles.greyColorButton),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const LineContainer(
+                      color: Color.fromARGB(255, 197, 196, 196)),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CircleContainer(color: Styles.greyColorButton),
+                ],
+              ),
+              const SizedBox(
+                height: 80,
+              ),
+              Text(
+                '3. Выберите интересы',
+                style: Styles.headLineStyle1.copyWith(fontSize: 24),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              TextFieldInputName(
+                hintText: 'Интересы',
+                textEditingController: _interesTextEditingController,
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              ChipsChoice<String>.multiple(
+                value: tags,
+                onChanged: (value) {
+                  setState(() {
+                    tags = value;
+                  });
+                },
+                choiceItems: C2Choice.listFrom(
+                    source: interests, value: (i, v) => v, label: (i, v) => v),
+                choiceActiveStyle: C2ChoiceStyle(
+                  color: Colors.black,
+                  borderColor: Styles.greyColorButton,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
                   ),
                 ),
-                const SizedBox(
-                  width: 65,
+                choiceStyle: const C2ChoiceStyle(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
                 ),
-                CircleContainer(color: Styles.greyColorButton),
-                const SizedBox(
-                  width: 5,
-                ),
-                const LineContainer(color: Color.fromARGB(255, 197, 196, 196)),
-                const SizedBox(
-                  width: 5,
-                ),
-                CircleContainer(color: Styles.greyColorButton),
-                const SizedBox(
-                  width: 5,
-                ),
-                const LineContainer(color: Color.fromARGB(255, 197, 196, 196)),
-                const SizedBox(
-                  width: 5,
-                ),
-                CircleContainer(color: Styles.greyColorButton),
-              ],
-            ),
-            const SizedBox(
-              height: 80,
-            ),
-            Text(
-              '3. Выберите интересы',
-              style: Styles.headLineStyle1.copyWith(fontSize: 24),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            TextFieldInputName(
-              hintText: 'Интересы',
-              textEditingController: _interesTextEditingController,
-              textInputType: TextInputType.text,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ChipsChoice<String>.multiple(
-              value: tags,
-              onChanged: (value) {
-                setState(() {
-                  tags = value;
-                });
-              },
-              choiceItems: C2Choice.listFrom(
-                  source: interests, value: (i, v) => v, label: (i, v) => v),
-              choiceActiveStyle:  C2ChoiceStyle(
-                color: Colors.black,
-                borderColor: Styles.greyColorButton,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(50),
-                ),
-              ),
-              choiceStyle: const C2ChoiceStyle(color: Colors.black,borderRadius: BorderRadius.all(
-                  Radius.circular(50),
-                ),),
                 wrapped: true,
-                
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            InkWell(
-                      child: Container(
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 18,
-                        ),
-                        decoration:  ShapeDecoration(
-                          color: Styles.greyColorButton,
-                          shape:  const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                        ),
-                        child: Text(
-                          "Батырма",
-                          style: Styles.headLineStyle2.copyWith(color: Colors.white),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              BlocConsumer<AuthBloc, AuthState>(
+                listener: (context, state) {
+                  if (state is RegisterLoading) {
+                    circlarIndicator(context);
+                  }
+                  if (state is RegisterFailed) {
+                    showSnackBar(state.failedText, context);
+                  }
+                  if (state is RegisterSuccess) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const BottomBar(),
+                      ),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return GestureDetector(
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 18,
+                      ),
+                      decoration: ShapeDecoration(
+                        color: Styles.greyColorButton,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                       ),
-                      onTap: () {
-                         signUpUser();
-                      },
+                      child: Text(
+                        "Батырма",
+                        style:
+                            Styles.headLineStyle2.copyWith(color: Colors.white),
+                      ),
                     ),
-          ],
+                    onTap: () {
+                      context.read<AuthBloc>().add(RegisterEvent(
+                          email: VarForRegister.email!,
+                          name: VarForRegister.name!,
+                          birthDay: VarForRegister.birthDay!,
+                          password: VarForRegister.password!,
+                          city: VarForRegister.city!,
+                          interest: tags,
+                          gender: VarForRegister.gender!));
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,3 +6,15 @@
     static String? city;
     static String? birthDay;
  }
+
+ class VarForAddEvents{
+    static String? uid; 
+   static String? name; 
+  static  String? description;
+   static DateTime? eventDate;
+   static DateTime? startTime;
+   static DateTime? endTime;
+  static String? location;
+  static List<String>? interest;
+  
+ }

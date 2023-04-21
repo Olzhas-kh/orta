@@ -6,6 +6,9 @@ import 'package:orta/screens/auth_screens/registration_page.dart';
 import 'package:orta/resources/app_styles.dart';
 import 'package:orta/widgets/text_field_input.dart';
 
+import '../../services/firebase_methods/auth_methods.dart';
+import '../../utils/utils.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -18,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailNumberController =
       TextEditingController();
   bool _passwordVisible = false;
+  bool _isLoading = false;
   @override
   void dispose() {
     super.dispose();
@@ -25,6 +29,31 @@ class _LoginPageState extends State<LoginPage> {
     _emailNumberController.dispose();
   }
 
+void loginUser() async {
+    setState(() {
+      _isLoading = false;
+    });
+
+    String res = await AuthMethods().signInUser(
+        email: _emailNumberController.text, password: _passwordController.text);
+    if (res == 'success') {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const BottomBar(
+            ),
+          ),
+          (route) => false);
+
+      setState(() {
+        _isLoading = true;
+      });
+    } else {
+      setState(() {
+        _isLoading = true;
+      });
+      showSnackBar(res, context);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,8 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const BottomBar()));
+                  loginUser();
                 },
               ),
               const SizedBox(

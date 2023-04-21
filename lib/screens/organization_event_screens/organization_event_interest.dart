@@ -6,9 +6,10 @@ import 'package:orta/widgets/row_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
 
 import '../../resources/app_styles.dart';
+import '../../services/var_for_register.dart';
 
 class OrganizationEventInterestPage extends StatefulWidget {
-  const OrganizationEventInterestPage({super.key});
+  const OrganizationEventInterestPage({super.key,});
 
   @override
   State<OrganizationEventInterestPage> createState() =>
@@ -75,7 +76,7 @@ class _OrganizationEventInterestPageState
               "Іс-шараныз дұрыс адамдарға ұсынылу үшін кемінде 3 тақырыпты таңдаңыз"),
           const ColumnSpacer(2),
           textFieldInputText(_searchController, "Қызығушылықтарды іздеу",
-              const Icon(Icons.search), null),
+              const Icon(Icons.search), null,TextInputType.text),
           const ColumnSpacer(1),
           ChipsChoice<String>.multiple(
             value: tags,
@@ -110,9 +111,13 @@ class _OrganizationEventInterestPageState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               backButton(context),
-              nextButton(context, const OrganizationEventPlacePage())
+              nextButton(context, const OrganizationEventPlacePage(), valueToStatic() as Function)
             ]),
       ),
     );
+  }
+  List<String>? valueToStatic(){
+    VarForAddEvents.interest = tags; 
+    return VarForAddEvents.interest;
   }
 }

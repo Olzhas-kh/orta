@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
 import 'package:orta/screens/organization_event_screens/organization_event_interest.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
@@ -56,7 +57,7 @@ class _OrganizationEventNamePageState extends State<OrganizationEventNamePage> {
           const ColumnSpacer(1.5),
           const Text("Адамдарға топтың не туралы екенін анық түсінуге мүмкіндік беретін атауды таңдаңыз"),
                     const ColumnSpacer(2),
-          textFieldInputText(_nameController, "Іс-шара атауы", null, null),
+          textFieldInputText(_nameController, "Іс-шара атауы", null, null,TextInputType.text),
                     const ColumnSpacer(1),
                      Text("Кемінде 5 символ еңгізіңіз",style: Theme.of(context).textTheme.bodySmall,)
 
@@ -71,9 +72,13 @@ class _OrganizationEventNamePageState extends State<OrganizationEventNamePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           backButton(context),
-          nextButton(context,const OrganizationEventInterestPage())
+          nextButton(context, const OrganizationEventInterestPage(), valueToStatic() as Function)
         ]),
       ),
     );
+  }
+  String? valueToStatic(){
+    VarForAddEvents.name = _nameController.text; 
+    return VarForAddEvents.name;
   }
 }
