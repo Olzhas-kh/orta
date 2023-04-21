@@ -220,18 +220,7 @@ class _OrganizationEventDescriptionPageState
                 builder: (context, state) {
                   return GestureDetector(
                     onTap: () {
-                      context.read<EventsBloc>().add(AddEvent(
-                          uid: uid,
-                          name: VarForAddEvents.name!,
-                          description: VarForAddEvents.description!,
-                          eventDate: VarForAddEvents.eventDate!,
-                          startTime: VarForAddEvents.startTime!,
-                          endTime: VarForAddEvents.endTime!,
-                          location: VarForAddEvents.location!,
-                          interest: VarForAddEvents.interest!,
-                          count: int.parse(_countController.text),
-                          price: int.parse(_costController.text),
-                          format: formatValue));
+                      
                     },
                     child: Container(
                       width: double.infinity,
@@ -262,7 +251,20 @@ class _OrganizationEventDescriptionPageState
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           backButton(context),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.read<EventsBloc>().add(AddEvent(
+                          uid: uid,
+                          name: VarForAddEvents.name!,
+                          description: VarForAddEvents.description!,
+                          eventDate: VarForAddEvents.eventDate!,
+                          startTime: VarForAddEvents.startTime!,
+                          endTime: VarForAddEvents.endTime!,
+                          location: VarForAddEvents.location!,
+                          interest: VarForAddEvents.interest!,
+                          count: int.parse(_countController.text),
+                          price: int.parse(_costController.text),
+                          format: formatValue));
+              },
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 60, vertical: 16),

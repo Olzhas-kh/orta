@@ -71,13 +71,23 @@ class _OrganizationEventPlacePageState extends State<OrganizationEventPlacePage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           backButton(context),
-          nextButton(context,const OrganizationEventTimePage(), valueToStatic() as Function)
+          GestureDetector(
+            onTap: () {
+            VarForAddEvents.location = _placeController.text; 
+            Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => OrganizationEventTimePage()));
+            },
+            child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              color: Styles.greyDark,
+            ),
+            child: const Text("Келесі"),
+      )
+    ),
         ]),
       ),
     );
 }
-String? valueToStatic(){
-    VarForAddEvents.location = _placeController.text; 
-    return VarForAddEvents.location;
-  }
 }

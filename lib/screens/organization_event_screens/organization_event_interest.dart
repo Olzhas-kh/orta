@@ -111,13 +111,23 @@ class _OrganizationEventInterestPageState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               backButton(context),
-              nextButton(context, const OrganizationEventPlacePage(), valueToStatic() as Function)
+              GestureDetector(
+    onTap: () {
+      VarForAddEvents.interest = tags; 
+      Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => OrganizationEventPlacePage()));
+    },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+        color: Styles.greyDark,
+        ),
+        child: const Text("Келесі"),
+      )
+    ),
             ]),
       ),
     );
-  }
-  List<String>? valueToStatic(){
-    VarForAddEvents.interest = tags; 
-    return VarForAddEvents.interest;
   }
 }
