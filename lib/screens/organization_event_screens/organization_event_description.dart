@@ -39,6 +39,8 @@ const List<String> formatList = [
   "Oskemen",
   "Kokshetau",
 ];
+  Uint8List? _image;
+
 
 class _OrganizationEventDescriptionPageState
     extends State<OrganizationEventDescriptionPage> {
@@ -206,7 +208,9 @@ class _OrganizationEventDescriptionPageState
                 },
                 builder: (context, state) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      selectImage();
+                    },
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 85),
@@ -214,13 +218,29 @@ class _OrganizationEventDescriptionPageState
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
                         color: Styles.greyDark,
-                        // image: DecorationImage(
-                        //             fit: BoxFit.fill,
-                        //             alignment: FractionalOffset.topCenter,
-                        //             image: MemoryImage(_file!),
-                        //           ),
+                        image: 
+                        _image != null?
+                        DecorationImage(
+                                    fit: BoxFit.fill,
+                                    alignment: FractionalOffset.topCenter,
+                                    image: 
+                                    MemoryImage(_image!)
+                                    
+                                  ):
+                                  const DecorationImage(
+                                    fit: BoxFit.fill,
+                                    alignment: FractionalOffset.topCenter,
+                                    image: 
+                                    NetworkImage(
+                                                'https://i.stack.imgur.com/l60Hf.png'),
+                                           
+                                    
+                                  )
                       ),
-                      child: const Icon(Icons.photo),
+                      child: _image != null?
+                       Icon(Icons.photo):
+                       SizedBox(),
+
                     ),
                   );
                 },
@@ -240,25 +260,30 @@ class _OrganizationEventDescriptionPageState
             child: BlocConsumer<EventsBloc, EventsState>(
               listener: (context, state) {
 if (state is AddEventLoading) {
-                    CircularProgressIndicator();
+                    const CircularProgressIndicator();
                   }
                   if (state is AddEventFailed) {
                     showSnackBar(state.message, context);
                   }
                   if (state is AddEventSuccess) {
-                    Navigator.of(context).pushReplacement(
+                    if (mounted) {
+  
+                    Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const BottomBar(),
                       ),
+                      
                     );
+}
                   }              },
               builder: (context, state) {
                 return GestureDetector(
                     onTap: () {
+                      getData();
                       context.read<EventsBloc>().add(AddEvent(
                           uid: uid,
                           name: VarForAddEvents.name!,
-                          description: VarForAddEvents.description!,
+                          description: _descriptionController.text,
                           eventDate: VarForAddEvents.eventDate!,
                           startTime: VarForAddEvents.startTime!,
                           endTime: VarForAddEvents.endTime!,
@@ -266,7 +291,12 @@ if (state is AddEventLoading) {
                           interest: VarForAddEvents.interest!,
                           count: int.parse(_countController.text),
                           price: int.parse(_costController.text),
-                          format: formatValue));
+                          format: formatValue.toString(),
+                          file: _image!
+                          
+                          ),
+                          
+                          );
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -286,44 +316,11 @@ if (state is AddEventLoading) {
     );
   }
 
-  _selectImage(BuildContext parentContext) async {
-    return showDialog(
-      context: parentContext,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          backgroundColor: Styles.greyColor,
-          title: const Text('Добавить пост'),
-          children: <Widget>[
-            SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text('Сделать снимку'),
-                onPressed: () async {
-                  Navigator.pop(context);
-                  Uint8List file = await pickImage(ImageSource.camera);
-                  setState(() {
-                    // _file = file;
-                  });
-                }),
-            SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text('Выбрать из галереи'),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Uint8List file = await pickImage(ImageSource.gallery);
-                  setState(() {
-                    //_file = file;
-                  });
-                }),
-            SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
-              child: const Text("Выйти"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      },
-    );
+    selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    // set state because we need to display the image we selected on the circle avatar
+    setState(() {
+      _image = im;
+    });
   }
 }

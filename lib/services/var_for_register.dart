@@ -10,7 +10,6 @@
  class VarForAddEvents{
     static String? uid; 
    static String? name; 
-  static  String? description;
    static DateTime? eventDate;
    static DateTime? startTime;
    static DateTime? endTime;

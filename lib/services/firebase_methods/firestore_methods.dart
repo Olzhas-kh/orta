@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:orta/services/firebase_methods/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
 class FireStoreMethods{
@@ -17,9 +20,13 @@ class FireStoreMethods{
    int count,
    int price,
    String format ,
+   Uint8List file,
+
    )
        async {
     String res = "Some error occurred";
+      String eventPhotoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
     try {
       if (uid.isNotEmpty) {
         // if the likes list contains the user uid, we need to remove it
@@ -36,7 +43,9 @@ class FireStoreMethods{
           'interest': interest,
           'count': count,
           'price': price,
-          'format': format,
+          'format': format, 
+          'eventPhotoUrl': eventPhotoUrl,
+
         }, SetOptions(merge: true));
         res = 'success';
       } else {
