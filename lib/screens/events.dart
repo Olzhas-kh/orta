@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +7,7 @@ import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/widgets/widgets_all.dart';
 
 import '../resources/app_styles.dart';
+import '../utils/utils.dart';
 
 class Events extends StatefulWidget {
   const Events({super.key});
@@ -29,7 +32,13 @@ const List<String> cities = [
 
 class _EventsState extends State<Events> {
   final TextEditingController _searchController = TextEditingController();
+  late Stream<QuerySnapshot> _dataStream;
 
+  @override
+  void initState() {
+    super.initState();
+    _dataStream = FirebaseFirestore.instance.collection('events').snapshots();
+  }
  
   int current = 0;
   final List<String> sportList = <String>[
@@ -48,6 +57,7 @@ class _EventsState extends State<Events> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Styles.white,
       appBar: AppBar(
@@ -108,7 +118,6 @@ class _EventsState extends State<Events> {
             const SizedBox(
               height: 16,
             ),
-
             /// CUSTOM TABBAR
             SizedBox(
               width: double.infinity,
@@ -157,7 +166,8 @@ class _EventsState extends State<Events> {
                         ),
                       ],
                     );
-                  }),
+                  }
+                ),
             ),
 
             Expanded(
@@ -179,40 +189,61 @@ class _EventsState extends State<Events> {
                 calendarOptions: CalendarOptions(viewType: ViewType.DAILY),
                 events: [
                   Event(
-                    child: ListView.builder(
-                      itemCount: 15,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color:
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: _dataStream,
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        print(snapshot.hasData);
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: snapshot.data?.docs.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) { 
+                              DocumentSnapshot document = snapshot.data?.docs[index] as DocumentSnapshot<Object?>;
+                              // return ListTile(
+                              //   title: Text(document['name']),
+                              //   subtitle: Text(document['format']),
+                              // );
+                              return Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color:
                                     const Color.fromARGB(255, 178, 174, 174)),
-                            width: 80,
-                            height: 80,
-                            margin: const EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                "Card $index",
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text("31 март, 19:00 - 21:00"),
-                              SizedBox(height: 10),
-                              Text("Мастер класс по UX/UI design"),
-                              SizedBox(height: 10),
-                              Text("Мастер класс"),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                                  width: 80,
+                                  height: 80,
+                                  margin: const EdgeInsets.all(10),
+                                  child: Center(
+                                    child: Text(
+                                      "Card $index",
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(document['eventDate'].toString()),
+                                    SizedBox(height: 10),
+                                    Text(document['name']),
+                                    SizedBox(height: 10),
+                                    Text(document['format']),
+                                  ],
+                                )
+                              ],
+                            );
+                            }
+                        );
+                      }
+                      else if(snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+                      else {
+                        return Text('Loading...');
+                      }
+                    }
+                    ),   
                     dateTime: CalendarDateTime(
                       year: 2023,
                       month: 04,
