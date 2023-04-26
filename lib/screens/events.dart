@@ -5,9 +5,11 @@ import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/widgets/widgets_all.dart';
+import 'package:intl/intl.dart';
 
 import '../resources/app_styles.dart';
 import '../utils/utils.dart';
+
 
 class Events extends StatefulWidget {
   const Events({super.key});
@@ -200,6 +202,7 @@ class _EventsState extends State<Events> {
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) { 
                               DocumentSnapshot document = snapshot.data?.docs[index] as DocumentSnapshot<Object?>;
+                              String eventFormattedDate = DateFormat('dd/MM/yyyy').format((document['eventDate'] as Timestamp).toDate());
                               // return ListTile(
                               //   title: Text(document['name']),
                               //   subtitle: Text(document['format']),
@@ -224,7 +227,7 @@ class _EventsState extends State<Events> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(document['eventDate'].toString()),
+                                    Text(eventFormattedDate),
                                     SizedBox(height: 10),
                                     Text(document['name']),
                                     SizedBox(height: 10),
