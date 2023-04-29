@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/splash_screen.dart';
 import 'package:orta/screens/splash_screens/onboarding1.dart';
@@ -19,7 +20,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
+      localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate
+        ],
+        supportedLocales:const [
+           Locale('en'),
+           Locale('rr')
+        ],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
