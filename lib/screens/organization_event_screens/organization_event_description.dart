@@ -39,8 +39,7 @@ const List<String> formatList = [
   "Oskemen",
   "Kokshetau",
 ];
-  Uint8List? _image;
-
+Uint8List? _image;
 
 class _OrganizationEventDescriptionPageState
     extends State<OrganizationEventDescriptionPage> {
@@ -203,9 +202,7 @@ class _OrganizationEventDescriptionPageState
               const Text("Іс-шаранызды сипаттайтын сипаттама жазыңыз"),
               const ColumnSpacer(1),
               BlocConsumer<EventsBloc, EventsState>(
-                listener: (context, state) {
-                  
-                },
+                listener: (context, state) {},
                 builder: (context, state) {
                   return GestureDetector(
                     onTap: () {
@@ -215,32 +212,21 @@ class _OrganizationEventDescriptionPageState
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 85),
                       decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(16)),
-                        color: Styles.greyDark,
-                        image: 
-                        _image != null?
-                        DecorationImage(
-                                    fit: BoxFit.fill,
-                                    alignment: FractionalOffset.topCenter,
-                                    image: 
-                                    MemoryImage(_image!)
-                                    
-                                  ):
-                                  const DecorationImage(
-                                    fit: BoxFit.fill,
-                                    alignment: FractionalOffset.topCenter,
-                                    image: 
-                                    NetworkImage(
-                                                'https://i.stack.imgur.com/l60Hf.png'),
-                                           
-                                    
-                                  )
-                      ),
-                      child: _image != null?
-                       Icon(Icons.photo):
-                       SizedBox(),
-
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                          color: Styles.greyDark,
+                          image: _image != null
+                              ? DecorationImage(
+                                  fit: BoxFit.fill,
+                                  alignment: FractionalOffset.topCenter,
+                                  image: MemoryImage(_image!))
+                              : const DecorationImage(
+                                  fit: BoxFit.fill,
+                                  alignment: FractionalOffset.topCenter,
+                                  image: NetworkImage(
+                                      'https://i.stack.imgur.com/l60Hf.png'),
+                                )),
+                      child: _image != null ? Icon(Icons.photo) : SizedBox(),
                     ),
                   );
                 },
@@ -259,43 +245,40 @@ class _OrganizationEventDescriptionPageState
             create: (context) => EventsBloc(),
             child: BlocConsumer<EventsBloc, EventsState>(
               listener: (context, state) {
-if (state is AddEventLoading) {
-                    const CircularProgressIndicator();
-                  }
-                  if (state is AddEventFailed) {
-                    showSnackBar(state.message, context);
-                  }
-                  if (state is AddEventSuccess) {
-                    if (mounted) {
-  
+                if (state is AddEventLoading) {
+                  const CircularProgressIndicator();
+                }
+                if (state is AddEventFailed) {
+                  showSnackBar(state.message, context);
+                }
+                if (state is AddEventSuccess) {
+                  if (mounted) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const BottomBar(),
                       ),
-                      
                     );
-}
-                  }              },
+                  }
+                }
+              },
               builder: (context, state) {
                 return GestureDetector(
                     onTap: () {
                       getData();
-                      context.read<EventsBloc>().add(AddEvent(
-                          uid: uid,
-                          name: VarForAddEvents.name!,
-                          description: _descriptionController.text,
-                          eventDate: VarForAddEvents.eventDate!,
-                          startTime: VarForAddEvents.startTime!,
-                          endTime: VarForAddEvents.endTime!,
-                          location: VarForAddEvents.location!,
-                          interest: VarForAddEvents.interest!,
-                          count: int.parse(_countController.text),
-                          price: int.parse(_costController.text),
-                          format: formatValue.toString(),
-                          file: _image!
-                          
-                          ),
-                          
+                      context.read<EventsBloc>().add(
+                            AddEvent(
+                                uid: uid,
+                                name: VarForAddEvents.name!,
+                                description: _descriptionController.text,
+                                eventDate: VarForAddEvents.eventDate!,
+                                startTime: VarForAddEvents.startTime!,
+                                endTime: VarForAddEvents.endTime!,
+                                location: VarForAddEvents.location!,
+                                interest: VarForAddEvents.interest!,
+                                count: int.parse(_countController.text),
+                                price: int.parse(_costController.text),
+                                format: formatValue.toString(),
+                                file: _image!),
                           );
                     },
                     child: Container(
@@ -316,7 +299,7 @@ if (state is AddEventLoading) {
     );
   }
 
-    selectImage() async {
+  selectImage() async {
     Uint8List im = await pickImage(ImageSource.gallery);
     // set state because we need to display the image we selected on the circle avatar
     setState(() {

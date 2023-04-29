@@ -194,14 +194,14 @@ void loginUser() async {
                   ),
                 ),
                 onTap: () {
-                 // loginUser();
-                  Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const BottomBar(
-            ),
-          ),
-          (route) => false);
-                },
+                  loginUser();
+          //         Navigator.of(context).pushAndRemoveUntil(
+          // MaterialPageRoute(
+          //   builder: (context) => const BottomBar(
+          //   ),
+          // ),
+          // (route) => false);
+             },
 
 
                 

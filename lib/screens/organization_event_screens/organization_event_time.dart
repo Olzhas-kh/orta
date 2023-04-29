@@ -14,14 +14,13 @@ class OrganizationEventTimePage extends StatefulWidget {
       _OrganizationEventTimePageState();
 }
 
-class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
   DateTime dateTime = DateTime.now();
   DateTime endDateTime = DateTime.now();
+class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
   @override
   Widget build(BuildContext context) {
     final hours = dateTime.hour.toString().padLeft(2, '0');
     final minutes = dateTime.minute.toString().padLeft(2, '0');
-    final startTime = dateTime;
     final endHours = endDateTime.hour.toString().padLeft(2, '0');
     final endMinutes = endDateTime.minute.toString().padLeft(2, '0');
     return Scaffold(

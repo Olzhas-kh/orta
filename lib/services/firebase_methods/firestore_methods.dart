@@ -26,7 +26,7 @@ class FireStoreMethods{
        async {
     String res = "Some error occurred";
       String eventPhotoUrl = await StorageMethods()
-            .uploadImageToStorage('profilePics', file, false);
+            .uploadImageToStorage('profilePics', file, true);
     try {
       if (uid.isNotEmpty) {
         // if the likes list contains the user uid, we need to remove it
