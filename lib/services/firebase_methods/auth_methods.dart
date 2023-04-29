@@ -48,8 +48,7 @@ class AuthMethods {
           
         );
 
-        // adding user in our database
-
+        // adding user in our database  
         await _firestore
             .collection("users")
             .doc(cred.user!.uid)

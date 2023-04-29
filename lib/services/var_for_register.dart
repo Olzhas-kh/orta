@@ -8,11 +8,11 @@
  }
 
  class VarForAddEvents{
-    static String? uid; 
-   static String? name; 
-   static DateTime? eventDate;
-   static DateTime? startTime;
-   static DateTime? endTime;
+  static String? uid; 
+  static String? name; 
+  static DateTime? eventDate;
+  static DateTime? startTime;
+  static DateTime? endTime;
   static String? location;
   static List<String>? interest;
   

@@ -1,8 +1,12 @@
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
+
+import '../utils/utils.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,7 +14,6 @@ class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
-
 const List<String> cities = [
   "Almaty",
   "Astana",
@@ -25,18 +28,54 @@ const List<String> cities = [
   "Kokshetau",
 ];
 int tag = 1;
-List<String> interests = [
-  "Football",
-  "Volleyball",
-  "Chess",
-  
-];
 List<String> tags = [];
 
 class _ProfilePageState extends State<ProfilePage> {
-  String dropdownValue = cities.first;
+
+  bool isLoading = false;
+  String uid = '';
+  var userData = {};
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+      final User user = auth.currentUser!;
+      uid = user.uid;
+
+      var userSnap =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      userData = userSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        e.toString(),
+        context,
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void initState() {
+    getData();
+    super.initState();
+  }
+  
+  
+  
   @override
   Widget build(BuildContext context) {
+    String dropdownValue = userData['city']==null?cities.first:userData['cities'];
+    List<dynamic> interests = userData['interest']==null?["list"]:userData['interest']; 
+    print(userData['username']);
+    print(userData['interest']);
+    print(userData['city']);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,11 +88,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 profilePhoto(),
                 const ColumnSpacer(1.5),
                 Text(
-                  "Miras",
+                  userData['username'] == null?"username":userData['username'],
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const ColumnSpacer(1),
-                const Text("+7 (777) 757-77-75"),
+                Text(userData['email']==null?"email":userData['email']),
                 const ColumnSpacer(1.5),
                 Container(
                   padding:
