@@ -5,6 +5,7 @@ import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/widgets/widgets_all.dart';
+import 'package:intl/intl.dart';
 
 import '../resources/app_styles.dart';
 import '../utils/utils.dart';
@@ -62,6 +63,14 @@ bool isLoading = false;
       isLoading = false;
     });
   }
+  late Stream<QuerySnapshot> _dataStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _dataStream = FirebaseFirestore.instance.collection('events').snapshots();
+  }
+ 
   int current = 0;
   final List<String> sportList = <String>[
     "Football",
@@ -79,6 +88,7 @@ bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Styles.white,
       appBar: AppBar(
@@ -139,7 +149,6 @@ bool isLoading = false;
             const SizedBox(
               height: 16,
             ),
-
             /// CUSTOM TABBAR
             SizedBox(
               width: double.infinity,
@@ -188,7 +197,8 @@ bool isLoading = false;
                         ),
                       ],
                     );
-                  }),
+                  }
+                ),
             ),
 
             Expanded(
@@ -210,40 +220,62 @@ bool isLoading = false;
                 calendarOptions: CalendarOptions(viewType: ViewType.DAILY),
                 events: [
                   Event(
-                    child: ListView.builder(
-                      itemCount: 15,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color:
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: _dataStream,
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        print(snapshot.hasData);
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: snapshot.data?.docs.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) { 
+                              DocumentSnapshot document = snapshot.data?.docs[index] as DocumentSnapshot<Object?>;
+                              String eventFormattedDate = DateFormat('dd/MM/yyyy').format((document['eventDate'] as Timestamp).toDate());
+                              // return ListTile(
+                              //   title: Text(document['name']),
+                              //   subtitle: Text(document['format']),
+                              // );
+                              return Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color:
                                     const Color.fromARGB(255, 178, 174, 174)),
-                            width: 80,
-                            height: 80,
-                            margin: const EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                "Card $index",
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text("31 март, 19:00 - 21:00"),
-                              SizedBox(height: 10),
-                              Text("Мастер класс по UX/UI design"),
-                              SizedBox(height: 10),
-                              Text("Мастер класс"),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                                  width: 80,
+                                  height: 80,
+                                  margin: const EdgeInsets.all(10),
+                                  child: Center(
+                                    child: Text(
+                                      "Card $index",
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(eventFormattedDate),
+                                    SizedBox(height: 10),
+                                    Text(document['name']),
+                                    SizedBox(height: 10),
+                                    Text(document['format']),
+                                  ],
+                                )
+                              ],
+                            );
+                            }
+                        );
+                      }
+                      else if(snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+                      else {
+                        return Text('Loading...');
+                      }
+                    }
+                    ),   
                     dateTime: CalendarDateTime(
                       year: 2023,
                       month: 04,
