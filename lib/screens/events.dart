@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +7,7 @@ import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/widgets/widgets_all.dart';
 
 import '../resources/app_styles.dart';
+import '../utils/utils.dart';
 
 class Events extends StatefulWidget {
   const Events({super.key});
@@ -29,8 +32,36 @@ const List<String> cities = [
 
 class _EventsState extends State<Events> {
   final TextEditingController _searchController = TextEditingController();
+bool isLoading = false;
+  String uid = '';
+  var userData = {};
 
- 
+ getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+      final User user = auth.currentUser!;
+      uid = user.uid;
+
+      var userSnap =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      userData = userSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        e.toString(),
+        context,
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
   int current = 0;
   final List<String> sportList = <String>[
     "Football",

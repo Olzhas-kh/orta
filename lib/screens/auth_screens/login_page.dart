@@ -37,12 +37,15 @@ void loginUser() async {
     String res = await AuthMethods().signInUser(
         email: _emailNumberController.text, password: _passwordController.text);
     if (res == 'success') {
+      if(mounted){
+
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => const BottomBar(
             ),
           ),
           (route) => false);
+      }
 
       setState(() {
         _isLoading = true;
@@ -191,7 +194,13 @@ void loginUser() async {
                   ),
                 ),
                 onTap: () {
-                  loginUser();
+                 // loginUser();
+                  Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const BottomBar(
+            ),
+          ),
+          (route) => false);
                 },
 
 

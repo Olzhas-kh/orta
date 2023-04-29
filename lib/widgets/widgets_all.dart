@@ -152,5 +152,15 @@ GestureDetector nextButton(BuildContext context,Widget navigationPage,Function f
   
 }
 
+Container profilePhoto(){
+  return Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(shape: BoxShape.circle,
+                color: Styles.greyColor,
+                ),
+              );
+}
+
 
 
