@@ -4,6 +4,7 @@ import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/events.dart';
 import 'package:orta/screens/my_events_screens/my_events_screen.dart';
 import 'package:orta/screens/organization_event_screens/organization_event_name.dart';
+import 'package:orta/screens/profile_screen.dart';
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
 
@@ -17,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
     const Events(),
     const MyEventsPage(),
     const OrganizationEventNamePage(),
-    const Text('Profile'),
+    const ProfilePage(),
   ];
   void _onItemTapped (int index){
     setState(() {

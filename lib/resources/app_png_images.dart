@@ -6,4 +6,5 @@ class AppPngImages{
   static const logo = "assets/images/png/logo.png";
   static const ortaApp = "assets/images/png/orta_app.png";
   static const splashLogo = "assets/images/png/splash_logo.png";
+  static const splashBack = "assets/images/png/splash_back_png.png";
 }

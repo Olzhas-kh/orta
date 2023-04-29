@@ -4,6 +4,7 @@ Color primary = const Color(0xFF687daf);
 class Styles{
   static Color primaryColor = primary;
   static Color textColor = const Color(0xFF3b3b3b);
+  static Color blueAppColor = const Color(0xFF3073C2);
   static Color greyColor = const Color.fromARGB(255, 178, 174, 174);
   static Color greyLight = const Color.fromARGB(255, 219, 216, 216);
   static Color greyDark = const Color.fromARGB(255, 181, 178, 178);

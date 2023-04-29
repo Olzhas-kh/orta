@@ -9,4 +9,5 @@ class AppSvgImages{
   static const String myEventsTappedBottomIcon = "assets/images/svg/my_events_tapped_bottom_icon.svg";
   static const String homeTappedBottomIcon = "assets/images/svg/home_tapped_bottom_icon.svg";
   static const String organizationTappedBottomIcon = "assets/images/svg/organization_tapped_bottom_icon.svg";
+  static const String splashIcon = "assets/images/svg/splash_icon.svg";
 }

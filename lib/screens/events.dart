@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import '../resources/app_styles.dart';
 import '../utils/utils.dart';
 
-
 class Events extends StatefulWidget {
   const Events({super.key});
 
@@ -34,6 +33,36 @@ const List<String> cities = [
 
 class _EventsState extends State<Events> {
   final TextEditingController _searchController = TextEditingController();
+bool isLoading = false;
+  String uid = '';
+  var userData = {};
+
+ getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+      final User user = auth.currentUser!;
+      uid = user.uid;
+
+      var userSnap =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      userData = userSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        e.toString(),
+        context,
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
   late Stream<QuerySnapshot> _dataStream;
 
   @override
