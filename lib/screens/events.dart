@@ -116,9 +116,11 @@ class _EventsState extends State<Events> {
                         const ColumnSpacer(1.5),
                         Container(
                           decoration: BoxDecoration(
+                            border: Border.all(
+                                            color: Styles.greyAppColor, width: 1),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
-                              color: Styles.greyDark),
+                              color: Styles.white),
                           child: Padding(
                             padding: const EdgeInsets.all(7.0),
                             child: Row(
@@ -142,7 +144,7 @@ class _EventsState extends State<Events> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children:  [
-                        Text('${data['price']} tg'),
+                        Text('${data['price']} tg',style: TextStyle(color: Styles.orangeAppColor),),
                         const ColumnSpacer(7.5),
                         const Text(""),
                       ],
@@ -165,7 +167,7 @@ class _EventsState extends State<Events> {
     return events;
   }
 
-  var data;
+  
   late Stream<QuerySnapshot> _dataStream;
 
   @override
@@ -202,7 +204,7 @@ class _EventsState extends State<Events> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 13),
-                child: SvgPicture.asset(AppSvgImages.vectorIconLogo),
+                child: SvgPicture.asset(AppSvgImages.vectorIconLogo,),
               ),
               const SizedBox(
                 width: 5,
@@ -287,14 +289,14 @@ class _EventsState extends State<Events> {
                                   height: 45,
                                   decoration: BoxDecoration(
                                     color: current == index
-                                        ? Styles.greyColor
+                                        ? Styles.orangeAppColor
                                         : Styles.bgColor,
                                     borderRadius: current == index
                                         ? BorderRadius.circular(15)
                                         : BorderRadius.circular(10),
                                     border: current == index
                                         ? Border.all(
-                                            color: Styles.greyColor, width: 2)
+                                            color: Styles.orangeAppColor, width: 2)
                                         : null,
                                   ),
                                   child: Center(
@@ -303,8 +305,8 @@ class _EventsState extends State<Events> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: current == index
-                                              ? Colors.black
-                                              : Colors.black),
+                                              ? Styles.white
+                                              : Styles.black),
                                     ),
                                   ),
                                 ),
@@ -320,7 +322,7 @@ class _EventsState extends State<Events> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasData) {
                           return EventCalendar(
                             calendarType: CalendarType.GREGORIAN,
@@ -328,7 +330,7 @@ class _EventsState extends State<Events> {
                             headerOptions: HeaderOptions(
                                 weekDayStringType: WeekDayStringTypes.SHORT),
                             dayOptions: DayOptions(
-                              selectedBackgroundColor: Styles.greyColor,
+                              selectedBackgroundColor: Styles.orangeAppColor,
                               weekDaySelectedColor: Colors.black,
                             ),
                             eventOptions: EventOptions(
@@ -342,7 +344,7 @@ class _EventsState extends State<Events> {
                             events: snapshot.data!,
                           );
                         } else {
-                          return Center(child: Text('No events found'));
+                          return const Center(child: Text('No events found'));
                         }
                       },
                     ),

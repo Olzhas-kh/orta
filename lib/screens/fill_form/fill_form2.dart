@@ -30,7 +30,6 @@ const List<String> cities = [
   "Kokshetau",
   
 ];
-  ScrollController scrollController = ScrollController();
 
 class _FillForm2State extends State<FillForm2> {
     String dropdownValue = cities.first;
@@ -63,19 +62,19 @@ class _FillForm2State extends State<FillForm2> {
                 const SizedBox(
                   width: 65,
                 ),
-                CircleContainer(color: Styles.greyColorButton),
+                CircleContainer(color: Styles.blueAppColor),
                 const SizedBox(
                   width: 5,
                 ),
-                const LineContainer(color: Color.fromARGB(255, 105, 103, 103)),
+                 LineContainer(color: Styles.blueAppColor),
                 const SizedBox(
                   width: 5,
                 ),
-                CircleContainer(color: Styles.greyColorButton),
+                CircleContainer(color: Styles.blueAppColor),
                 const SizedBox(
                   width: 5,
                 ),
-                const LineContainer(color: Color.fromARGB(255, 197, 196, 196)),
+                 LineContainer(color: Styles.indicatorGrey),
                 const SizedBox(
                   width: 5,
                 ),
@@ -116,8 +115,8 @@ class _FillForm2State extends State<FillForm2> {
                          // This is called when the user selects an item.
                          setState(() {
                            dropdownValue = value!;
-                           VarForRegister.city = dropdownValue;
                          });
+                           VarForRegister.city = dropdownValue;
                        },
                        items: cities.map<DropdownMenuItem<String>>((String value) {
                          return DropdownMenuItem<String>(
@@ -142,7 +141,7 @@ class _FillForm2State extends State<FillForm2> {
                           vertical: 18,
                         ),
                         decoration:  ShapeDecoration(
-                          color: Styles.greyColorButton,
+                          color: Styles.blueAppColor,
                           shape:  const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),

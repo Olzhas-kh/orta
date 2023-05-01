@@ -46,7 +46,7 @@ class _OrganizationEventPlacePageState extends State<OrganizationEventPlacePage>
               const RowSpacer(1),
               indicatorTab(Styles.greyLight),
               const RowSpacer(1),
-              indicatorTab(Styles.greyDark),
+              indicatorTab(Styles.blueAppColor),
               const RowSpacer(1),
               indicatorTab(Styles.greyLight),
               const RowSpacer(1),
@@ -81,9 +81,9 @@ class _OrganizationEventPlacePageState extends State<OrganizationEventPlacePage>
             padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: Styles.greyDark,
+              color: Styles.blueAppColor,
             ),
-            child: const Text("Келесі"),
+            child:  Text("Келесі",style: TextStyle(color: Styles.white),),
       )
     ),
         ]),

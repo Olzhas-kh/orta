@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_png_images.dart';
+import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/fill_form/fill_form1.dart';
 
 import 'package:orta/screens/auth_screens/login_page.dart';
@@ -153,11 +155,11 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppPngImages.gmail),
+                SvgPicture.asset(AppSvgImages.gmail),
                   const SizedBox(
                     width: 15,
                   ),
-                  Image.asset(AppPngImages.icloud),
+                   SvgPicture.asset(AppSvgImages.icloud),
                 ],
               ),
               const SizedBox(

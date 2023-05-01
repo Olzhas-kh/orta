@@ -4,7 +4,10 @@ import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/events.dart';
 import 'package:orta/screens/my_events_screens/my_events_screen.dart';
 import 'package:orta/screens/organization_event_screens/organization_event_name.dart';
+import 'package:orta/screens/organization_event_screens/organization_main.dart';
 import 'package:orta/screens/profile_screen.dart';
+
+import '../resources/app_styles.dart';
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
 
@@ -17,7 +20,7 @@ class _BottomBarState extends State<BottomBar> {
   static final List<Widget> _widgetOptions = <Widget> [
     const Events(),
     const MyEventsPage(),
-    const OrganizationEventNamePage(),
+    const OrganizationMain(),
     const ProfilePage(),
   ];
   void _onItemTapped (int index){
@@ -43,10 +46,10 @@ class _BottomBarState extends State<BottomBar> {
         unselectedItemColor: const Color(0xFF526480),
         type: BottomNavigationBarType.fixed,
         items: [
-        BottomNavigationBarItem(icon: SvgPicture.asset(AppSvgImages.homeBottomIcon),label: "Home"),
-        BottomNavigationBarItem(icon:  SvgPicture.asset(AppSvgImages.myEventsBottomIcon), label: "My events"),
-        BottomNavigationBarItem(icon:  SvgPicture.asset(AppSvgImages.organizationBottomIcon), label: "Organization"),
-        BottomNavigationBarItem(icon:  SvgPicture.asset(AppSvgImages.profileBottomIcon),label: "Profile"),
+        BottomNavigationBarItem(icon: SvgPicture.asset(AppSvgImages.homeBottomIcon, color:_selectedIndex==0? Styles.blueAppColor:Styles.black,),label: "Home"),
+        BottomNavigationBarItem(icon:  SvgPicture.asset(AppSvgImages.myEventsBottomIcon,color: _selectedIndex==1? Styles.blueAppColor:Styles.black,), label: "My events"),
+        BottomNavigationBarItem(icon:  SvgPicture.asset(AppSvgImages.organizationBottomIcon,color:_selectedIndex==2? Styles.blueAppColor:Styles.black,), label: "Organization"),
+        BottomNavigationBarItem(icon:  SvgPicture.asset(AppSvgImages.profileBottomIcon,color:_selectedIndex==3? Styles.blueAppColor:Styles.black,),label: "Profile"),
         
       ]),
     );

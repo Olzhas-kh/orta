@@ -59,7 +59,7 @@ class _OrganizationEventInterestPageState
             children: [
               indicatorTab(Styles.greyLight),
               const RowSpacer(1),
-              indicatorTab(Styles.greyDark),
+              indicatorTab(Styles.blueAppColor),
               const RowSpacer(1),
               indicatorTab(Styles.greyLight),
               const RowSpacer(1),
@@ -88,8 +88,8 @@ class _OrganizationEventInterestPageState
             choiceItems: C2Choice.listFrom(
                 source: interests, value: (i, v) => v, label: (i, v) => v),
             choiceActiveStyle: C2ChoiceStyle(
-              color: Colors.black,
-              borderColor: Styles.greyColorButton,
+              color: Styles.orangeAppColor,
+              borderColor: Styles.orangeAppColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(50),
               ),
@@ -121,9 +121,9 @@ class _OrganizationEventInterestPageState
         padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
-        color: Styles.greyDark,
+        color: Styles.blueAppColor,
         ),
-        child: const Text("Келесі"),
+        child:  Text("Келесі",style: TextStyle(color: Styles.white),),
       )
     ),
             ]),

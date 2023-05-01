@@ -50,7 +50,7 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
               const RowSpacer(1),
               indicatorTab(Styles.greyLight),
               const RowSpacer(1),
-              indicatorTab(Styles.greyDark),
+              indicatorTab(Styles.blueAppColor),
               const RowSpacer(1),
               indicatorTab(Styles.greyLight),
             ],
@@ -66,8 +66,8 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
               final date = await pickDate();
               if (date == null) return;
 
-              final newDate = DateTime(dateTime.year, dateTime.month,
-                  dateTime.day, dateTime.hour, dateTime.minute);
+              var newDate = DateTime(date.year, date.month,
+                  date.day, date.hour, date.minute);
 
               setState(() {
                 dateTime = newDate;
@@ -195,9 +195,9 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
             padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: Styles.greyDark,
+              color: Styles.blueAppColor,
             ),
-            child: const Text("Келесі"),
+            child:  Text("Келесі",style: TextStyle(color: Styles.white),),
           )
         ),
         ]),

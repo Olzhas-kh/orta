@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orta/resources/app_styles.dart';
 
 
 class TextFieldInputName extends StatelessWidget {
@@ -6,6 +7,7 @@ class TextFieldInputName extends StatelessWidget {
   final bool isPass;
   final String hintText;
   final TextInputType textInputType;
+  
   const TextFieldInputName({
     Key? key,
     required this.textEditingController,
@@ -27,6 +29,7 @@ class TextFieldInputName extends StatelessWidget {
           contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
+               borderSide:  BorderSide(color: Styles.blueAppColor, width: 1.5),
               ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),

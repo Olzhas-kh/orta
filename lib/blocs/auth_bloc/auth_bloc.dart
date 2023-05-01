@@ -7,16 +7,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
-    on<LoginEvent>((event, emit) async {
-      emit(LoginLoading());
-      try {
-        await AuthMethods()
-            .signInUser(email: event.email, password: event.password);
-        emit(LoginSuccess());
-      } catch (e) {
-        emit(LoginFailed(failedText: e.toString()));
-      }
-    });
+   
 
 
     //Register User Logic
