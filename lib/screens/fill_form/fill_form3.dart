@@ -68,25 +68,25 @@ class _FillForm3State extends State<FillForm3> {
                   const SizedBox(
                     width: 65,
                   ),
-                  CircleContainer(color: Styles.greyColorButton),
+                  CircleContainer(color: Styles.blueAppColor),
                   const SizedBox(
                     width: 5,
                   ),
-                  const LineContainer(
-                      color: Color.fromARGB(255, 197, 196, 196)),
+                   LineContainer(
+                      color:  Styles.blueAppColor),
                   const SizedBox(
                     width: 5,
                   ),
-                  CircleContainer(color: Styles.greyColorButton),
+                  CircleContainer(color:  Styles.blueAppColor),
                   const SizedBox(
                     width: 5,
                   ),
-                  const LineContainer(
-                      color: Color.fromARGB(255, 197, 196, 196)),
+                   LineContainer(
+                      color:  Styles.blueAppColor),
                   const SizedBox(
                     width: 5,
                   ),
-                  CircleContainer(color: Styles.greyColorButton),
+                  CircleContainer(color: Styles.blueAppColor),
                 ],
               ),
               const SizedBox(
@@ -117,8 +117,8 @@ class _FillForm3State extends State<FillForm3> {
                 choiceItems: C2Choice.listFrom(
                     source: interests, value: (i, v) => v, label: (i, v) => v),
                 choiceActiveStyle: C2ChoiceStyle(
-                  color: Colors.black,
-                  borderColor: Styles.greyColorButton,
+                  color:  Styles.orangeAppColor,
+                  borderColor: Styles.orangeAppColor,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(50),
                   ),
@@ -159,7 +159,7 @@ class _FillForm3State extends State<FillForm3> {
                         vertical: 18,
                       ),
                       decoration: ShapeDecoration(
-                        color: Styles.greyColorButton,
+                        color: Styles.blueAppColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),

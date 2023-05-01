@@ -169,6 +169,11 @@ class _MyEventsPageState extends State<MyEventsPage> {
   }
 
   @override
+  State<MyEventsPage> createState() => _MyEventsPageState();
+}
+bool _isNow = true;
+class _MyEventsPageState extends State<MyEventsPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Styles.white,
@@ -201,21 +206,35 @@ class _MyEventsPageState extends State<MyEventsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      color: Styles.greyLight),
-                  child: const Text("Өткен"),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isNow = false;
+                    });
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        color: _isNow ? Styles.greyLight : Styles.blueAppColor),
+                    child: const Text("Келешек"),
+                  ),
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      color: Styles.greyDark),
-                  child: const Text("Алдағы"),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isNow = true;
+                    });
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        color: _isNow ? Styles.blueAppColor : Styles.greyLight),
+                    child: const Text("Өткен"),
+                  ),
                 ),
               ],
             ),

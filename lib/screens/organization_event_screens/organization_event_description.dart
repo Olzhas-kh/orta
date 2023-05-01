@@ -112,7 +112,7 @@ class _OrganizationEventDescriptionPageState
                   const RowSpacer(1),
                   indicatorTab(Styles.greyLight),
                   const RowSpacer(1),
-                  indicatorTab(Styles.greyDark),
+                  indicatorTab(Styles.blueAppColor),
                 ],
               ),
               const ColumnSpacer(2),
@@ -221,12 +221,12 @@ class _OrganizationEventDescriptionPageState
                                   alignment: FractionalOffset.topCenter,
                                   image: MemoryImage(_image!))
                               : const DecorationImage(
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.contain,
                                   alignment: FractionalOffset.topCenter,
                                   image: NetworkImage(
-                                      'https://i.stack.imgur.com/l60Hf.png'),
+                                      'https://icon-library.com/images/add-photo-icon/add-photo-icon-29.jpg', scale: 1),
                                 )),
-                      child: _image != null ? Icon(Icons.photo) : SizedBox(),
+                      
                     ),
                   );
                 },
@@ -287,9 +287,9 @@ class _OrganizationEventDescriptionPageState
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
-                        color: Styles.greyDark,
+                        color: Styles.blueAppColor,
                       ),
-                      child: const Text("Келесі"),
+                      child:  Text("Келесі",style: TextStyle(color: Styles.white),),
                     ));
               },
             ),

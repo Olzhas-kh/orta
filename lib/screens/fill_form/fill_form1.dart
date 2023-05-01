@@ -6,7 +6,9 @@ import 'package:orta/resources/app_styles.dart';
 import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/circle_container.dart';
 import 'package:orta/widgets/line_container.dart';
+import 'package:orta/widgets/text_field_input_birthday.dart';
 import 'package:orta/widgets/text_field_input_name.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class FillForm1 extends StatefulWidget {
   const FillForm1({super.key});
@@ -20,8 +22,20 @@ final TextEditingController _nameTextEditingController =
 final TextEditingController _dateTextEditingController =
     TextEditingController();
 bool _isChosen = true;
+var maskFormatter = MaskTextInputFormatter(
+    mask: '##.##.####',
+    filter: {"#": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy);
+
 
 class _FillForm1State extends State<FillForm1> {
+
+  @override
+  void dispose() {
+    _nameTextEditingController.dispose();
+    _dateTextEditingController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +63,11 @@ class _FillForm1State extends State<FillForm1> {
                 const SizedBox(
                   width: 65,
                 ),
-                CircleContainer(color: Styles.greyColorButton),
+                CircleContainer(color: Styles.blueAppColor),
                 const SizedBox(
                   width: 5,
                 ),
-                const LineContainer(color: Color.fromARGB(255, 197, 196, 196)),
+                 LineContainer(color: Styles.indicatorGrey),
                 const SizedBox(
                   width: 5,
                 ),
@@ -61,7 +75,7 @@ class _FillForm1State extends State<FillForm1> {
                 const SizedBox(
                   width: 5,
                 ),
-                const LineContainer(color: Color.fromARGB(255, 197, 196, 196)),
+                 LineContainer(color: Styles.indicatorGrey),
                 const SizedBox(
                   width: 5,
                 ),
@@ -101,10 +115,12 @@ class _FillForm1State extends State<FillForm1> {
             const SizedBox(
               height: 15,
             ),
-            TextFieldInputName(
+            TextFieldInputBirthDay(
               hintText: 'дд.мм.гггг',
               textEditingController: _dateTextEditingController,
-              textInputType: TextInputType.text,
+              textInputType: TextInputType.number,
+              inputFormat: maskFormatter,
+             
             ),
             const SizedBox(
               height: 15,
@@ -126,7 +142,7 @@ class _FillForm1State extends State<FillForm1> {
                           color:
                               _isChosen ? Styles.greyColor : Styles.greyColor),
                       borderRadius: BorderRadius.circular(20),
-                      color: _isChosen ? Styles.greyColor : Styles.white,
+                      color: _isChosen ? Styles.blueAppColor : Styles.white,
                     ),
                     child: Text(
                       "Мужской",
@@ -156,7 +172,7 @@ class _FillForm1State extends State<FillForm1> {
                           color:
                               _isChosen ? Styles.greyColor : Styles.greyColor),
                       borderRadius: BorderRadius.circular(20),
-                      color: _isChosen ? Styles.white : Styles.greyColor,
+                      color: _isChosen ? Styles.white : Styles.blueAppColor,
                     ),
                     child: Text(
                       "Женский",
@@ -186,7 +202,7 @@ class _FillForm1State extends State<FillForm1> {
                   vertical: 18,
                 ),
                 decoration: ShapeDecoration(
-                  color: Styles.greyColorButton,
+                  color: Styles.blueAppColor,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),

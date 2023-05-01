@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_png_images.dart';
+import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/login_page.dart';
 
@@ -96,7 +98,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 decoration: InputDecoration(
                     hintText: 'Пароль',
                     labelText: "",
-                    prefixIcon: Image.asset(AppPngImages.key),
+                    prefixIcon: const Icon(Icons.key),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _passwordVisible
@@ -115,6 +117,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
+                       borderSide:
+                             BorderSide(color: Styles.blueAppColor, width: 1.5),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -134,7 +138,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               const SizedBox(
                 height: 15,
               ),
-              InkWell(
+              GestureDetector(
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -142,7 +146,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     vertical: 16,
                   ),
                   decoration: ShapeDecoration(
-                    color: Styles.greyColorButton,
+                    color: Styles.blueAppColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
@@ -191,11 +195,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppPngImages.gmail),
+                   SvgPicture.asset(AppSvgImages.gmail),
                   const SizedBox(
                     width: 15,
                   ),
-                  Image.asset(AppPngImages.icloud),
+                   SvgPicture.asset(AppSvgImages.icloud),
                 ],
               ),
               const SizedBox(

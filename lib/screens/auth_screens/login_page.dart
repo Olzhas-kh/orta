@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_png_images.dart';
+import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/bottom_bar.dart';
 import 'package:orta/screens/auth_screens/registration_page.dart';
 
@@ -110,6 +112,7 @@ void loginUser() async {
                 hintText: 'Email',
                 textInputType: TextInputType.text,
                 textEditingController: _emailNumberController,
+                
               ),
               const SizedBox(
                 height: 15,
@@ -120,7 +123,7 @@ void loginUser() async {
                 decoration: InputDecoration(
                     hintText: 'Пароль',
                     labelText: "",
-                    prefixIcon: Image.asset(AppPngImages.key),
+                    prefixIcon: const Icon(Icons.key),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _passwordVisible
@@ -138,6 +141,8 @@ void loginUser() async {
                     filled: true,
                     contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     focusedBorder: OutlineInputBorder(
+                      borderSide:
+                             BorderSide(color: Styles.blueAppColor, width: 1.5),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -167,7 +172,7 @@ void loginUser() async {
                             builder: (context) => const RegistrationPage()));
                       },
                       child: const Text(
-                        "Забыли пароль?",
+                        "У вас нет аккаунта?",
                         textAlign: TextAlign.end,
                       )),
                 ],
@@ -183,14 +188,14 @@ void loginUser() async {
                     vertical: 16,
                   ),
                   decoration: ShapeDecoration(
-                    color: Styles.greyColorButton,
+                    color: Styles.blueAppColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
                   child: Text(
                     "Батырма",
-                    style: Styles.headLineStyle2.copyWith(color: Colors.white),
+                    style: Styles.headLineStyle2.copyWith(color: Styles.white),
                   ),
                 ),
                 onTap: () {
@@ -227,11 +232,11 @@ void loginUser() async {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppPngImages.gmail),
+                   SvgPicture.asset(AppSvgImages.gmail),
                   const SizedBox(
                     width: 15,
                   ),
-                  Image.asset(AppPngImages.icloud),
+                 SvgPicture.asset(AppSvgImages.icloud),
                 ],
               ),
             ],

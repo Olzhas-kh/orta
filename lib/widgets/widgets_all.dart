@@ -1,39 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:orta/screens/auth_screens/login_page.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import '../resources/app_styles.dart';
 
-InkWell buttonOnboarding(
+GestureDetector buttonOnboarding(
     BuildContext context, bool isNavigate, Widget pushNavigate) {
-        Uint8List? _file;
 
-  return InkWell(
+  return GestureDetector(
     child: Container(
       width: double.infinity,
-      alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(
-        vertical: 18,
+        vertical: 15,
       ),
       decoration: ShapeDecoration(
-        color: Styles.greyColorButton,
+        color: Styles.blueAppColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
       ),
       child: Text(
-        "Батырма",
+        
+        "Әрі қарай",
+        textAlign: TextAlign.center,
         style: Styles.headLineStyle2.copyWith(color: Colors.white),
       ),
     ),
     onTap: () {
       if (isNavigate) {
-        Navigator.of(context).push(
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => pushNavigate),
         );
       }
     },
   );
 }
+
+InkWell textButtonOnboarding(BuildContext context){
+  return InkWell(
+    child: Text("Өткізу", style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Styles.white),),
+    onTap: () {
+       Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+    },
+  );
+}
+Container lineContainerOnBoarding(Color color) {
+  return Container(
+    width: 120,
+    decoration: BoxDecoration(
+      border: Border.all(color: color),
+      color: color,
+    ),
+  );
+}
+ 
 
 Container lineContainer(Color color) {
   return Container(
