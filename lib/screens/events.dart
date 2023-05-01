@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/widgets_all.dart';
 import 'package:intl/intl.dart';
 
@@ -77,6 +78,9 @@ class _EventsState extends State<Events> {
           shrinkWrap: true,
           itemBuilder: (context, index) => GestureDetector(
               onTap: () {
+                VarForEventId.eventId = data['eventId'];
+                VarForEventId.uid = data['uid'];
+                // print(data['eventId']);
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const EventInfo()),
                 );

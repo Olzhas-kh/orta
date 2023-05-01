@@ -17,3 +17,8 @@
   static List<String>? interest;
   
  }
+
+ class VarForEventId{
+  static String? eventId;
+  static String? uid;
+ }
