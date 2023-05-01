@@ -1,8 +1,13 @@
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/row_spacer.dart';
+import 'package:intl/intl.dart';
+
+import '../utils/utils.dart';
 
 class EventInfo extends StatefulWidget {
   const EventInfo({super.key});
@@ -12,16 +17,76 @@ class EventInfo extends StatefulWidget {
 }
 
 int tag = 1;
-List<String> interests = [
-  "Football",
-  "Volleyball",
-  "Chess",
-];
 List<String> tags = [];
 
 class _EventInfoState extends State<EventInfo> {
+
+  bool isLoading = false;
+  var eventData = {};
+  String eventId ='';
+  String uid = '';
+  var userData = {};
+  
+  getData() async {
+    
+    try {
+      eventId = VarForEventId.eventId.toString();
+      uid = VarForEventId.uid.toString();
+
+      var snapshot = 
+        await FirebaseFirestore.instance.collection('events').doc(eventId).get();
+      var snapshotUser = 
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      print(uid);
+      eventData = snapshot.data()!;
+
+      userData = snapshotUser.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        e.toString(),
+        context,
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    String userName = userData['username']==null?"username":userData['username'];
+
+      print(userName);
+    List<dynamic> interests = eventData['interest']==null?["design"]:eventData['interest']; 
+
+    int unixTime = 1621071556; // example Unix timestamp value
+    Timestamp timestampExeption = Timestamp.fromMillisecondsSinceEpoch(unixTime * 1000);
+    Timestamp timeStamp = eventData["eventDate"]==null?timestampExeption:eventData["eventDate"];
+    Timestamp startTime = eventData['startTime']==null?timestampExeption:eventData["startTime"];
+    Timestamp endTime = eventData['endTime']==null? timestampExeption:eventData["endTime"];
+      DateTime dateTime = timeStamp.toDate();
+      DateTime startDateTime = startTime.toDate();
+      DateTime endDateTime = endTime.toDate();
+      int year = dateTime.year;
+      int month = dateTime.month;
+      int day = dateTime.day;
+      int startTimeH = startDateTime.hour;
+      int startTimeM = startDateTime.minute;
+      int endTimeH = endDateTime.hour;
+      int endTimeM = endDateTime.minute;
+      String eventFormattedDate = DateFormat('dd/MM/yyyy')
+          .format(timeStamp.toDate());
+
+          
     return Scaffold(
       body: Column(
         children: [
@@ -43,10 +108,10 @@ class _EventInfoState extends State<EventInfo> {
                       },
                     ),
                     const Spacer(),
-                    const Text("Мастер класс"),
+                    Text(eventData['format']==null?"format":eventData['format']),
                     const ColumnSpacer(0.8),
                     Text(
-                      "UX/UI design",
+                      eventData['name']==null?"name":eventData['name'],
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall!
@@ -88,7 +153,7 @@ class _EventInfoState extends State<EventInfo> {
                             "Ұйымдастырушы",
                             style: TextStyle(color: Styles.greyColor),
                           ),
-                          const Text("Жәнібек Джексон"),
+                          Text(userName),
                         ],
                       ),
                       const Spacer(),
@@ -96,8 +161,8 @@ class _EventInfoState extends State<EventInfo> {
                         children: [
                           const ColumnSpacer(2),
                           Row(
-                            children: const [
-                              Text("12"),
+                            children:  [
+                              Text(eventData['count']==null?"0":eventData['count'].toString()),
                               RowSpacer(0.5),
                               Icon(Icons.people),
                             ],
@@ -114,19 +179,19 @@ class _EventInfoState extends State<EventInfo> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const ColumnSpacer(1.5),
-                  const Text(
-                      "Lorem ipsum dolor sit amet consectetur. Dis ullamcorper cras vel donec leo aenean et. Показать больше"),
+                  Text(
+                      eventData['description']==null?"description":eventData['description']),
                   const ColumnSpacer(0.5),
                   Divider(),
                   const ColumnSpacer(0.5),
                   Row(
-                    children: const [
+                    children:  [
                       Icon(
                         Icons.calendar_month,
                         size: 20,
                       ),
                       RowSpacer(0.5),
-                      Text("11 март ")
+                      Text(eventFormattedDate)
                     ],
                   ),
                   const ColumnSpacer(0.5),
@@ -142,13 +207,13 @@ class _EventInfoState extends State<EventInfo> {
                   ),
                   ColumnSpacer(0.5),
                   Row(
-                    children: const [
+                    children:  [
                       Icon(
                         Icons.location_on,
                         size: 20,
                       ),
                       RowSpacer(0.5),
-                      Text("SDU. ​Проспект Абылай хана, 1/1 "),
+                      Text(eventData['location']==null?"location":eventData['location']),
                       Spacer(),
                       Icon(
                         Icons.arrow_forward_ios,
@@ -194,7 +259,8 @@ class _EventInfoState extends State<EventInfo> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                child: Text("Тегін", style: Theme.of(context).textTheme.headlineSmall,),
+                child: Text(eventData['price']==null?"0":eventData['price'].toString(), 
+                      style: Theme.of(context).textTheme.headlineSmall,),
               ),
               const Spacer(),
               Container(
