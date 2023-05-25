@@ -38,15 +38,17 @@ const List<String> cities = [
   "Kokshetau",
 ];
 final FirebaseFirestore _db = FirebaseFirestore.instance;
+int current = 0;
 
-Future<List<Map<String, dynamic>>> getAllDocData(String collectionName) async {
+Future<List<Map<String, dynamic>>> getAllDocData(String collectionName, String name) async {
   List<Map<String, dynamic>> docDataList = [];
   QuerySnapshot snapshot =
-      await FirebaseFirestore.instance.collection(collectionName).get();
+      await FirebaseFirestore.instance.collection(collectionName).where('interest', arrayContainsAny: [name]).orderBy('interest').get();
   snapshot.docs.forEach((doc) {
     docDataList.add(doc.data() as Map<String, dynamic>);
   });
-  log(docDataList[0]['eventId']);
+  print(name);
+  // log(docDataList[0]['eventId']);
   return docDataList;
 }
 
@@ -60,7 +62,7 @@ class _EventsState extends State<Events> {
     List<Event> events = [];
 
     final snapshot =
-        await FirebaseFirestore.instance.collection('events').get();
+        await FirebaseFirestore.instance.collection('events').where('interest', arrayContainsAny: [sportList[current]]).orderBy('interest').get();
 
     snapshot.docs.forEach((document) {
       final data = document.data();
@@ -171,19 +173,16 @@ class _EventsState extends State<Events> {
     return events;
   }
 
-  
   late Stream<QuerySnapshot> _dataStream;
 
   @override
   void initState() {
-    getAllDocData("events");
+    getAllDocData("events", sportList[current]);
     super.initState();
-    _dataStream = FirebaseFirestore.instance.collection('events').snapshots();
+    _dataStream = FirebaseFirestore.instance.collection('events').where('interest', arrayContainsAny: [sportList[current]]).orderBy('interest').snapshots();
 
     log(_dataStream.first.toString());
   }
-
-  int current = 0;
   final List<String> sportList = <String>[
     "Football",
     "Volleyball",
@@ -284,6 +283,7 @@ class _EventsState extends State<Events> {
                                 onTap: () {
                                   setState(() {
                                     current = index;
+                                    // print(current);
                                   });
                                 },
                                 child: AnimatedContainer(
