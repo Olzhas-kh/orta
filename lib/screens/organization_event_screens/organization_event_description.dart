@@ -278,7 +278,8 @@ class _OrganizationEventDescriptionPageState
                                 count: int.parse(_countController.text),
                                 price: int.parse(_costController.text),
                                 format: formatValue.toString(),
-                                file: _image!),
+                                file: _image!,
+                                participants_list: [], ),
                           );
                     },
                     child: Container(
