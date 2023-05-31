@@ -14,6 +14,7 @@ class EventModel {
   final String format;
   final int  price;
   final String image;
+  final List<String> participants_list;
   
 
 
@@ -31,6 +32,7 @@ class EventModel {
     required this.format,
     required this.price,
     required this.image,
+    required this.participants_list,
   });
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +48,8 @@ class EventModel {
         "count": count,
         "format": format,
         "price": price,
-        "image":image
+        "image":image,
+        "participants_list": participants_list, 
     };
 
   static EventModel fromSnap(DocumentSnapshot snap) {
@@ -64,7 +67,8 @@ class EventModel {
       count: snapshot['count'],
       format:snapshot['format'],
       price: snapshot['price'],
-      image: snapshot['image']
+      image: snapshot['image'],
+      participants_list: snapshot['participants_list']
     );
   }
 }

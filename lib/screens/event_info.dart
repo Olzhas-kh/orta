@@ -1,12 +1,17 @@
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:orta/models/event_model.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/screens/events.dart';
 import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import 'package:intl/intl.dart';
 
+import '../blocs/bloc/events_bloc.dart';
 import '../utils/utils.dart';
 
 class EventInfo extends StatefulWidget {
@@ -25,6 +30,7 @@ class _EventInfoState extends State<EventInfo> {
   var eventData = {};
   String eventId ='';
   String uid = '';
+  String currentUid = '';
   var userData = {};
   
   getData() async {
@@ -37,8 +43,8 @@ class _EventInfoState extends State<EventInfo> {
         await FirebaseFirestore.instance.collection('events').doc(eventId).get();
       var snapshotUser = 
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-      print(uid);
+      currentUid = FirebaseAuth.instance.currentUser!.uid;
+      // print(uid);
       eventData = snapshot.data()!;
 
       userData = snapshotUser.data()!;
@@ -67,6 +73,8 @@ class _EventInfoState extends State<EventInfo> {
 
       print(userName);
     List<dynamic> interests = eventData['interest']==null?["design"]:eventData['interest']; 
+    List<dynamic> participants_current = eventData['participants_list']==null?[]:eventData['participants_list'];
+    var participants_limit = eventData['count']==null?0:eventData['count'];
 
     int unixTime = 1621071556; // example Unix timestamp value
     Timestamp timestampExeption = Timestamp.fromMillisecondsSinceEpoch(unixTime * 1000);
@@ -266,13 +274,42 @@ class _EventInfoState extends State<EventInfo> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
                 decoration: BoxDecoration(
-
-                    borderRadius: const BorderRadius.all(Radius.circular(16),
-                    
-                    ),
-                    color: Styles.greyColor
-                    ),
-                    child: Text("Қатысу"),
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  color: Styles.greyColor,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    DocumentReference eventRef = FirebaseFirestore.instance.collection('events').doc(eventId);
+                    // Check if the list size exceeds a limit
+                    if (participants_current.length > participants_limit) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Event Full"),
+                            content: Text("The event is already full. No more participants can join."),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      // Add the current user to the participants list
+                      eventRef.update({
+                        'participants_list': FieldValue.arrayUnion([currentUid])
+                      }).then((_) {
+                        // Success message or navigation
+                      }).catchError((error) {
+                        // Error handling
+                      });
+                    }
+                  },
+                  child: Text("Қатысу"),
+                ),
               )
             ],
           )),

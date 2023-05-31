@@ -39,6 +39,7 @@ const List<String> cities = [
 ];
 final FirebaseFirestore _db = FirebaseFirestore.instance;
 int current = 0;
+String uid = '';
 
 Future<List<Map<String, dynamic>>> getAllDocData(String collectionName, String name) async {
   List<Map<String, dynamic>> docDataList = [];
@@ -47,7 +48,9 @@ Future<List<Map<String, dynamic>>> getAllDocData(String collectionName, String n
   snapshot.docs.forEach((doc) {
     docDataList.add(doc.data() as Map<String, dynamic>);
   });
+  
   print(name);
+  uid = FirebaseAuth.instance.currentUser!.uid;
   // log(docDataList[0]['eventId']);
   return docDataList;
 }
