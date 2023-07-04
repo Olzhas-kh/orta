@@ -15,7 +15,9 @@ class AddEvent extends EventsEvent {
   final int count;
   final int price;
   final String format;
-  final Uint8List file;
+  Uint8List file;
+  List<String> participants_list;
+
 
   AddEvent(
       {required this.uid,
@@ -30,4 +32,7 @@ class AddEvent extends EventsEvent {
       required this.price,
       required this.format,
       required this.file});
+      required this.file,
+      required this.participants_list
+      });
 }

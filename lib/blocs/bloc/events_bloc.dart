@@ -27,7 +27,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
             event.count,
             event.price,
             event.format,
-            event.file
+            event.file,
             );
             log("success");
 
