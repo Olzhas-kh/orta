@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/flutter_event_calendar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,9 +10,7 @@ import 'package:orta/widgets/widgets_all.dart';
 import 'package:intl/intl.dart';
 
 import '../resources/app_styles.dart';
-import '../utils/utils.dart';
 import '../widgets/column_spacer.dart';
-import '../widgets/my_events_widget.dart';
 import '../widgets/row_spacer.dart';
 import 'event_info.dart';
 
@@ -228,7 +225,7 @@ class _EventsState extends State<Events> {
                   elevation: 16,
                   style: const TextStyle(color: Colors.black, fontSize: 16),
                   onChanged: (String? value) {
-                    // This is called when the user selects an item.
+                 
                     setState(() {
                       dropdownValue = value!;
                     });

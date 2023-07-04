@@ -107,9 +107,10 @@ import 'dart:developer';
                          const ColumnSpacer(1.5),
                          Container(
                            decoration: BoxDecoration(
+                                border: Border.all(color: Styles.black),
                                borderRadius:
                                    const BorderRadius.all(Radius.circular(8)),
-                               color: Styles.greyDark),
+                               ),
                            child: Padding(
                              padding: const EdgeInsets.all(7.0),
                              child: Row(
@@ -133,7 +134,7 @@ import 'dart:developer';
                      Column(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children:  [
-                         Text('${data['price']} tg'),
+                         Text('${data['price']} tg',),
                          const ColumnSpacer(7.5),
                          const Text(""),
                        ],
@@ -167,6 +168,7 @@ import 'dart:developer';
 
      log(_dataStream.first.toString());
    }
+   bool isChosen = true;
 @override
    Widget build(BuildContext context) {
      return Scaffold(
@@ -200,21 +202,35 @@ import 'dart:developer';
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      color: Styles.greyLight),
-                  child: const Text("Өткен"),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isChosen =false;
+                    });
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        color: isChosen? Styles.greyAppColor: Styles.blueAppColor),
+                    child:  Text("Өткен", style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Styles.white),),
+                  ),
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      color: Styles.greyDark),
-                  child: const Text("Алдағы"),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isChosen =true;
+                    });
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        color: isChosen? Styles.blueAppColor: Styles.greyAppColor),
+                    child:  Text("Алдағы",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Styles.white),),
+                  ),
                 ),
               ],
              ),

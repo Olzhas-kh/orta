@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/screens/auth_screens/login_page.dart';
+import 'package:orta/services/firebase_methods/auth_methods.dart';
 import 'package:orta/widgets/column_spacer.dart';
 import 'package:orta/widgets/widgets_all.dart';
 
-import '../utils/utils.dart';
+import 'package:orta/utils/utils.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -31,7 +33,11 @@ int tag = 1;
 List<String> tags = [];
 
 class _ProfilePageState extends State<ProfilePage> {
-
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   bool isLoading = false;
   String uid = '';
   var userData = {};
@@ -62,20 +68,14 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  void initState() {
-    getData();
-    super.initState();
-  }
   
   
   
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = userData['city']==null?cities.first:userData['cities'];
-    List<dynamic> interests = userData['interest']==null?["list"]:userData['interest']; 
-    print(userData['username']);
-    print(userData['interest']);
-    print(userData['city']);
+    String dropdownValue =cities.first;
+    List<dynamic> interests = userData['interest'] ?? ["list"]; 
+   
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -88,20 +88,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 profilePhoto(),
                 const ColumnSpacer(1.5),
                 Text(
-                  userData['username'] == null?"username":userData['username'],
+                  userData['username'] ?? "username",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const ColumnSpacer(1),
-                Text(userData['email']==null?"email":userData['email']),
+                Text(userData['email'] ?? "email"),
                 const ColumnSpacer(1.5),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
-                    color: Styles.greyColor,
+                    color: Styles.blueAppColor,
                   ),
-                  child: const Text("Edit"),
+                  child:  Text("Edit profile", style: TextStyle(color: Styles.white),),
                 ),
               ],
             )),
@@ -149,20 +149,26 @@ class _ProfilePageState extends State<ProfilePage> {
               
               choiceItems: C2Choice.listFrom(
                   source: interests, value: (i, v) => v, label: (i, v) => v),
+                
               choiceActiveStyle: C2ChoiceStyle(
+                avatarBorderColor: Styles.orangeAppColor,
+                disabledColor: Styles.orangeAppColor,
+                backgroundColor: Styles.orangeAppColor,
                 color: Colors.black,
-                borderColor: Styles.greyColorButton,
+                borderColor: Styles.orangeAppColor,
                 borderRadius: const BorderRadius.all(
                   Radius.circular(50),
                 ),
               ),
-              choiceStyle: const C2ChoiceStyle(
-                color: Colors.black,
+              choiceStyle:  C2ChoiceStyle(
+                backgroundColor: Styles.orangeAppColor,
+                borderColor: Styles.orangeAppColor,
+                color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(50),
                 ),
               ),
-              wrapped: true, onChanged: (List<String> value) {  }, value: [],
+              wrapped: true, onChanged: (List<String> value) {  }, value: const [],
             ),
           ],
         ),
@@ -175,8 +181,15 @@ class _ProfilePageState extends State<ProfilePage> {
           width: double.infinity,
           child: ElevatedButton(
             
-            onPressed: () {  },
-          child: const Text("Edit")),
+            onPressed: () { 
+              AuthMethods().signOut(userData['uid']);
+               Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const LoginPage(),
+          ),
+        );
+             },
+          child: const Text("Sign Out")),
         ),
       ),
     );

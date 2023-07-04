@@ -7,4 +7,5 @@ class AppPngImages{
   static const splashBack = "assets/images/png/splash_back_png.png";
   static const onBoarding = "assets/images/png/onboarding.png";
   static const addImage = "assets/images/png/add_image.png";
+  static const personPhoto = "assets/images/png/person_photo.png";
 }

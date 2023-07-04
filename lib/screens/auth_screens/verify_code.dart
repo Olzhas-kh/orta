@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/fill_form/fill_form1.dart';
 

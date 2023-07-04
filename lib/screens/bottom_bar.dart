@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:orta/resources/app_svg_images.dart';
 import 'package:orta/screens/events.dart';
 import 'package:orta/screens/my_events_screens/my_events_screen.dart';
-import 'package:orta/screens/organization_event_screens/organization_event_name.dart';
 import 'package:orta/screens/organization_event_screens/organization_main.dart';
 import 'package:orta/screens/profile_screen.dart';
 

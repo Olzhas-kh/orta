@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orta/models/event_model.dart';
 import 'package:orta/resources/app_styles.dart';
+import 'package:orta/screens/my_events_screens/my_events_screen.dart';
 import 'package:orta/screens/events.dart';
 import 'package:orta/services/var_for_register.dart';
 import 'package:orta/widgets/column_spacer.dart';
@@ -43,8 +44,9 @@ class _EventInfoState extends State<EventInfo> {
         await FirebaseFirestore.instance.collection('events').doc(eventId).get();
       var snapshotUser = 
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
       currentUid = FirebaseAuth.instance.currentUser!.uid;
-      // print(uid);
+ 
       eventData = snapshot.data()!;
 
       userData = snapshotUser.data()!;
@@ -61,7 +63,7 @@ class _EventInfoState extends State<EventInfo> {
     });
   }
 
-  
+  @override
   void initState() {
     getData();
     super.initState();
@@ -69,7 +71,8 @@ class _EventInfoState extends State<EventInfo> {
 
   @override
   Widget build(BuildContext context) {
-    String userName = userData['username']==null?"username":userData['username'];
+    String userName = userData['username'] ?? "username";
+
 
       print(userName);
     List<dynamic> interests = eventData['interest']==null?["design"]:eventData['interest']; 
@@ -78,7 +81,7 @@ class _EventInfoState extends State<EventInfo> {
 
     int unixTime = 1621071556; // example Unix timestamp value
     Timestamp timestampExeption = Timestamp.fromMillisecondsSinceEpoch(unixTime * 1000);
-    Timestamp timeStamp = eventData["eventDate"]==null?timestampExeption:eventData["eventDate"];
+    Timestamp timeStamp = eventData["eventDate"] ?? timestampExeption;
     Timestamp startTime = eventData['startTime']==null?timestampExeption:eventData["startTime"];
     Timestamp endTime = eventData['endTime']==null? timestampExeption:eventData["endTime"];
       DateTime dateTime = timeStamp.toDate();
@@ -103,6 +106,10 @@ class _EventInfoState extends State<EventInfo> {
             height: 300,
             decoration: BoxDecoration(
               color: Styles.greyColor,
+              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  alignment: FractionalOffset.topCenter,
+                                  image: eventData['eventPhotoUrl']!=null ? NetworkImage(eventData['eventPhotoUrl'].toString()): NetworkImage("https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"))  
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
@@ -116,25 +123,28 @@ class _EventInfoState extends State<EventInfo> {
                       },
                     ),
                     const Spacer(),
-                    Text(eventData['format']==null?"format":eventData['format']),
+                    Text(eventData['format'] ?? "format", style: TextStyle(color: Styles.white),),
                     const ColumnSpacer(0.8),
                     Text(
-                      eventData['name']==null?"name":eventData['name'],
+                      eventData['name'] ?? "name",
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall!
                           .copyWith(
-                              color: Styles.black, fontWeight: FontWeight.bold),
+                              color: Styles.white, fontWeight: FontWeight.bold),
                     ),
                     const ColumnSpacer(0.8),
                     Container(
                       padding: const EdgeInsets.all(10),
                       width: 120,
                       decoration: BoxDecoration(
-                          color: Styles.white,
+                          border: Border.all(color: Styles.white),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(17))),
-                      child: const Center(child: Text("design")),
+                              const BorderRadius.all(Radius.circular(17)
+                              ),
+                         
+                              ),
+                      child:  Center(child: Text("design" , style: TextStyle(color: Styles.white),)),
                     ),
                   ]),
             ),
@@ -156,6 +166,7 @@ class _EventInfoState extends State<EventInfo> {
                       ),
                       const RowSpacer(1),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Ұйымдастырушы",
@@ -171,8 +182,8 @@ class _EventInfoState extends State<EventInfo> {
                           Row(
                             children:  [
                               Text(eventData['count']==null?"0":eventData['count'].toString()),
-                              RowSpacer(0.5),
-                              Icon(Icons.people),
+                              const RowSpacer(0.5),
+                              const Icon(Icons.people),
                             ],
                           )
                         ],
@@ -188,17 +199,17 @@ class _EventInfoState extends State<EventInfo> {
                   ),
                   const ColumnSpacer(1.5),
                   Text(
-                      eventData['description']==null?"description":eventData['description']),
+                      eventData['description'] ?? "description"),
                   const ColumnSpacer(0.5),
-                  Divider(),
+                  const Divider(),
                   const ColumnSpacer(0.5),
                   Row(
                     children:  [
-                      Icon(
+                      const Icon(
                         Icons.calendar_month,
                         size: 20,
                       ),
-                      RowSpacer(0.5),
+                      const RowSpacer(0.5),
                       Text(eventFormattedDate)
                     ],
                   ),
@@ -213,41 +224,43 @@ class _EventInfoState extends State<EventInfo> {
                       Text("19:00 - 21:00 ")
                     ],
                   ),
-                  ColumnSpacer(0.5),
+                  const ColumnSpacer(0.5),
                   Row(
                     children:  [
-                      Icon(
+                      const Icon(
                         Icons.location_on,
                         size: 20,
                       ),
-                      RowSpacer(0.5),
-                      Text(eventData['location']==null?"location":eventData['location']),
-                      Spacer(),
-                      Icon(
+                      const RowSpacer(0.5),
+                      Text(eventData['location'] ?? "location"),
+                      const Spacer(),
+                      const Icon(
                         Icons.arrow_forward_ios,
                         size: 20,
                       )
                     ],
                   ),
-                  ColumnSpacer(0.5),
-                  Divider(),
-                  ColumnSpacer(0.5),
-                  Text("Подходит для..."),
+                  const ColumnSpacer(0.5),
+                  const Divider(),
+                  const ColumnSpacer(0.5),
+                  const Text("Подходит для..."),
                   ChipsChoice<String>.multiple(
                     choiceItems: C2Choice.listFrom(
                         source: interests,
                         value: (i, v) => v,
                         label: (i, v) => v),
+                        
                     choiceActiveStyle: C2ChoiceStyle(
-                      color: Colors.black,
-                      borderColor: Styles.greyColorButton,
+                      color: Styles.orangeAppColor,
+                      borderColor: Styles.orangeAppColor,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(50),
                       ),
                     ),
-                    choiceStyle: const C2ChoiceStyle(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.all(
+                    choiceStyle:  C2ChoiceStyle(
+                      borderColor: Styles.orangeAppColor,
+                      color: Styles.orangeAppColor,
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(50),
                       ),
                     ),
@@ -271,6 +284,7 @@ class _EventInfoState extends State<EventInfo> {
                       style: Theme.of(context).textTheme.headlineSmall,),
               ),
               const Spacer(),
+
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
                 decoration: BoxDecoration(
@@ -309,6 +323,7 @@ class _EventInfoState extends State<EventInfo> {
                     }
                   },
                   child: Text("Қатысу"),
+
                 ),
               )
             ],
