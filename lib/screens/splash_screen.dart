@@ -21,7 +21,7 @@ class _SplasshScreenState extends State<SplasshScreen> {
     super.initState();
   }
   _navigateToHome()async{
-    await Future.delayed(const Duration(milliseconds: 1500), (){});
+    await Future.delayed(const Duration(milliseconds: 3000), (){});
      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const OnBoarding1()));
   }
   @override

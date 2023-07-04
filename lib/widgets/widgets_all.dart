@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/screens/auth_screens/login_page.dart';
 import 'package:orta/widgets/row_spacer.dart';
 import '../resources/app_styles.dart';
@@ -181,6 +182,7 @@ Container profilePhoto(){
                 decoration: BoxDecoration(shape: BoxShape.circle,
                 color: Styles.greyColor,
                 ),
+                child: Image.asset(AppPngImages.personPhoto),
               );
 }
 

@@ -189,7 +189,7 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
             VarForAddEvents.endTime = endDateTime;
 
             Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => OrganizationEventDescriptionPage()));
+                    MaterialPageRoute(builder: (context) => const OrganizationEventDescriptionPage()));
             },
             child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 16),
@@ -223,5 +223,13 @@ class _OrganizationEventTimePageState extends State<OrganizationEventTimePage> {
       initialTime: TimeOfDay(hour: endDateTime.hour, minute: endDateTime.minute),
      
       );
-
+  /**Мы разработали приложение в фреймворке флаттер который поддерживает платформы ios и android. Написали на языке Dart.
+    Перезапущу, начинается приложение со стартового страницы. Длится 3 секунды. потом идет знакомства с нашим приложением. 
+    Можно пропустить, или можно дальше идти. Если есть аккаунта  можно логиниться если нет можно зарегистрироваться.
+    Так, давайте регистрацию проходим.Напишем email, придумаем пароль. Здесь нужно указать персональные данные.Имя,
+    дата рождение и пол. Нужно указать город и интересы. Пользователь зарегистрирован.Вы можете увидить в firebaseе. 
+    Здесь у нас есть ивенты. Давайте создадим новый ивент.Первые нужно указать имя ивента. потом нужно указать интересы.
+     потом нужно указать адресс.Дальше дату и время ивента.Дальше нужно написать описание и количество участников.Цена и формат.
+     И нужно загрузить фото.И готово. Можно зайти и посмтреть об ивенте.
+  */
 }

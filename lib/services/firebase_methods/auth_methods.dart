@@ -89,7 +89,7 @@ class AuthMethods {
 
 //Sign Out
   Future<void> signOut(String uid) async {
-    await _firestore.collection('users').doc(uid).update({'token': ''});
+   // await _firestore.collection('users').doc(uid).update({'token': ''});
     await _auth.signOut();
   }
 }

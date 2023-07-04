@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:orta/resources/app_png_images.dart';
 import 'package:orta/resources/app_styles.dart';
 import 'package:orta/screens/splash_screen.dart';
-import 'package:orta/screens/splash_screens/onboarding1.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:splashscreen/splashscreen.dart';
 
 
 Future main() async {
@@ -21,12 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate
-        ],
         supportedLocales:const [
            Locale('en'),
            Locale('rr')
+        ],
+      localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate
         ],
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -35,7 +32,7 @@ class MyApp extends StatelessWidget {
               primary:Styles.blueAppColor,
         ),
       ),
-      home: SplasshScreen()
+      home: const SplasshScreen()
       // SplashScreen(
       //   seconds: 3,
       //   navigateAfterSeconds: const OnBoarding1(),
